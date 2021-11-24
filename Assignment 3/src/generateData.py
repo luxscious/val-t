@@ -1,8 +1,9 @@
 # 3309 Assignment 3 Data Generator
 # Generates data for the User/Player, Matches and Tournaments
-# Rohan Kamra Lyons
+# Written by: Rohan Kamra Lyons
+# Credits: jeanphorn on GitHub for username and password lists
 
-# TODO Rank (and wins based off that), usernames, and password
+# TODO Rank (and wins based off that), matches and tournaments
 
 # Needed libraries
 from random import randint
