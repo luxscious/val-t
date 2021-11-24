@@ -4,6 +4,9 @@
 # Needed libraries
 from random import randint
 
+# "pip intall xlsxwriter", needed for outputting to spreadsheet
+import xlsxwriter
+
 # Name lists
 lastNameList = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"]
 firstNameList = ["James", "Mary", "Robert", "Patricia", "John", "Jennifer", "Micheal", "Linda", "Will", "Elizabeth", "David", "Richard", "Susan", "Josh", "Jessica", "Tom", "Sarah", "Charles", "Chris", "Daniel", "Lisa", "Matt", "Tony", "Mark", "Sandra", "Ashley", "Steven", "Kim", "Paul", "Emily", "Andrew", "Michelle", "Ken", "Kevin", "Brian", "Amanda", "George", "Melissa", "Edward", "Stephanie", "Tim", "Rebecca", "Jason", "Sharon", "Jeff", "Laura", "Ryan", "Gary", "Amy", "Nick"]
@@ -48,9 +51,9 @@ for x in range(30):
             if(canAdd):
                 fullNameList.append(tempName)
                 listNum += 1
-                tempMatch = randint(0, 50)
+                tempMatch = randint(0, 20)
                 winList.append(tempMatch)
-                lossList.append(50 - tempMatch)
+                lossList.append(20 - tempMatch)
             canAdd = True
 
 # Changes the names into emails, then adds them to the email list
@@ -58,9 +61,23 @@ for y in fullNameList:
     tempEmail = y.replace(" ", "").lower() + "@" + emailEnd[randint(0, 5)]
     emailList.append(tempEmail)
 
-# Saves the data to a text file
-textFile = open("data.txt", "w")
+# Create excel sheet
+workbook = xlsxwriter.Workbook('data.xlsx')
+userSheet = workbook.add_worksheet()
+matchSheet = workbook.add_worksheet()
+tournamentSheet = workbook.add_worksheet()
+
+# Title User sheet
+userSheet.write("A1", "Actual Name")
+userSheet.write("B1", "Email")
+userSheet.write("C1", "Wins")
+userSheet.write("D1", "Losses")
+
+# Writing User data to sheet
 for z in range(listNum):
-    textFile.write(fullNameList[newNum] + "    " + emailList[newNum] + "    " + str(winList[newNum]) + "    " + str(lossList[newNum]) + "\n")
+    userSheet.write('A' + str(newNum + 2), fullNameList[newNum])
+    userSheet.write('B' + str(newNum + 2), emailList[newNum])
+    userSheet.write('C' + str(newNum + 2), str(winList[newNum]))
+    userSheet.write('D' + str(newNum + 2), str(lossList[newNum]))
     newNum += 1
-textFile.close()
+workbook.close()
