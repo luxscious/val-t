@@ -27,6 +27,10 @@ emailList = []
 winList = []
 lossList = []
 
+# Password and username lists
+userList = []
+passList = []
+
 # Temp vars
 tempName = ""
 tempEmail = ""
@@ -54,41 +58,60 @@ def convert(lst):
 usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
 
-# Does it a max of 30 times
-for x in range(30): 
+# Checks whether there are 1000 names yet
+while listNum < 1000: 
 
-    # Checks whether there are 1000 names yet
-    if(listNum < 1000):
-        for i in firstNameList:
+    for i in firstNameList:
 
-            # Makes the temp name a random name
-            tempName = i + " " + lastNameList[randint(0, 49)]
+        # Makes the temp name a random name
+        tempName = i + " " + lastNameList[randint(0, 49)]
 
-            # Checks whether than random name already exists
-            for j in fullNameList:
-                if(tempName == j):
-                    canAdd = False
+        # Checks whether than random name already exists
+        for j in fullNameList:
+            if(tempName == j):
+                canAdd = False
 
-            # If it doesn't, start changing the arrays
-            if(canAdd):
+        # If it doesn't, start changing the arrays
+        if(canAdd):
 
-                # Names
-                fullNameList.append(tempName)
+            # Names
+            fullNameList.append(tempName)
 
-                #Email
-                tempEmail = tempName.replace(" ", "").lower() + "@" + emailEnd[randint(0, 5)]
-                emailList.append(tempEmail)
+            #Email
+            tempEmail = tempName.replace(" ", "").lower() + "@" + emailEnd[randint(0, 5)]
+            emailList.append(tempEmail)
 
-                # Wins and losses
-                tempMatch = randint(0, 20)
-                winList.append(tempMatch)
-                lossList.append(20 - tempMatch)
+            # Wins and losses
+            tempMatch = randint(0, 20)
+            winList.append(tempMatch)
+            lossList.append(20 - tempMatch)
 
-                listNum += 1
-            canAdd = True
+            listNum += 1
+        canAdd = True
 
-#for i in range(listNum):
+# Adding user and pass with buffer
+for i in range(listNum + 1000):
 
+    # Setting the temp user and pass to a random user/pass
+    tempUser = usernames[randint(0, len(usernames))]
+    tempPass = passwords[randint(0, len(passwords))]
+
+    # Checks whether the username exists
+    for j in userList:
+        if(tempUser == j):
+            canAdd = False
+
+    # Checks whether the password exists
+    for j in passList:
+        if(tempPass == j):
+            canAdd = False
+    
+    # Adds the user and pass to lists
+    if(canAdd):
+        userList.append(tempUser)
+        passList.append(tempPass)
+
+    canAdd = True
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
@@ -98,15 +121,19 @@ tournamentSheet = workbook.add_worksheet()
 
 # Title User sheet
 userSheet.write("A1", "Actual Name")
-userSheet.write("B1", "Email")
-userSheet.write("C1", "Wins")
-userSheet.write("D1", "Losses")
+userSheet.write("B1", "Username")
+userSheet.write("C1", "Email")
+userSheet.write("D1", "Password")
+userSheet.write("E1", "Wins")
+userSheet.write("F1", "Losses")
 
 # Writing User data to sheet
 for i in range(listNum):
     userSheet.write('A' + str(newNum + 2), fullNameList[newNum])
-    userSheet.write('B' + str(newNum + 2), emailList[newNum])
-    userSheet.write('C' + str(newNum + 2), str(winList[newNum]))
-    userSheet.write('D' + str(newNum + 2), str(lossList[newNum]))
+    userSheet.write('B' + str(newNum + 2), userList[newNum])
+    userSheet.write('C' + str(newNum + 2), emailList[newNum])
+    userSheet.write('D' + str(newNum + 2), passList[newNum])
+    userSheet.write('E' + str(newNum + 2), str(winList[newNum]))
+    userSheet.write('F' + str(newNum + 2), str(lossList[newNum]))
     newNum += 1
 workbook.close()
