@@ -66,6 +66,13 @@ def convert(lst):
 usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
 
+while len(regionList) < 100:
+    regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
+    leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
+
+    buyIn.append(randint(0, 10))
+    payOut.append(randint(15, 100))
+
 # Checks whether there are 1000 names yet
 while listNum < 1000: 
 
@@ -118,17 +125,10 @@ for i in range(listNum + 1000):
     if(canAdd):
         userList.append(tempUser)
         passList.append(tempPass)
-        rankList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
+        rankList.append(leagueList[i % 100])
 
 
     canAdd = True
-
-while len(regionList) < 100:
-    regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
-    leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
-
-    buyIn.append(randint(0, 10))
-    payOut.append(randint(15, 100))
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
