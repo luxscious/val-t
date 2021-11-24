@@ -1,8 +1,15 @@
 # 3309 Assignment 3 Data Generator
-# Generates Names and Emails
+# Generates data for the User/Player, Matches and Tournaments
+# Rohan Kamra Lyons
+
+# TODO Rank (and wins based off that), usernames, and password
 
 # Needed libraries
 from random import randint
+import base64
+
+# "pip install requests"
+import requests
 
 # "pip intall xlsxwriter", needed for outputting to spreadsheet
 import xlsxwriter
@@ -32,6 +39,21 @@ newNum = 0
 # Boolean to check whether name can be added
 canAdd = True
 
+# Grabbing usernames and passwords
+f = open('Assignment 3\\src\\usernames.txt', 'r')
+rawUsername = f.read()
+rawUsername = [rawUsername]
+
+f = open('Assignment 3\\src\\passlist.txt', 'r')
+rawPassword = f.read()
+rawPassword = [rawPassword]
+
+def convert(lst):
+    return '\n'.join(lst).split()
+ 
+usernames = list( convert(rawUsername))
+passwords = list( convert(rawPassword))
+
 # Does it a max of 30 times
 for x in range(30): 
 
@@ -47,19 +69,26 @@ for x in range(30):
                 if(tempName == j):
                     canAdd = False
 
-            # If it doesn't, add it ot the name list
+            # If it doesn't, start changing the arrays
             if(canAdd):
+
+                # Names
                 fullNameList.append(tempName)
-                listNum += 1
+
+                #Email
+                tempEmail = tempName.replace(" ", "").lower() + "@" + emailEnd[randint(0, 5)]
+                emailList.append(tempEmail)
+
+                # Wins and losses
                 tempMatch = randint(0, 20)
                 winList.append(tempMatch)
                 lossList.append(20 - tempMatch)
+
+                listNum += 1
             canAdd = True
 
-# Changes the names into emails, then adds them to the email list
-for y in fullNameList:
-    tempEmail = y.replace(" ", "").lower() + "@" + emailEnd[randint(0, 5)]
-    emailList.append(tempEmail)
+#for i in range(listNum):
+
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
@@ -74,7 +103,7 @@ userSheet.write("C1", "Wins")
 userSheet.write("D1", "Losses")
 
 # Writing User data to sheet
-for z in range(listNum):
+for i in range(listNum):
     userSheet.write('A' + str(newNum + 2), fullNameList[newNum])
     userSheet.write('B' + str(newNum + 2), emailList[newNum])
     userSheet.write('C' + str(newNum + 2), str(winList[newNum]))
