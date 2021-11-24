@@ -120,7 +120,7 @@ for i in range(listNum + 1000):
 
     canAdd = True
 
-while len(regionList) < 101:
+while len(regionList) < 99:
     regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
     leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
 
@@ -132,18 +132,22 @@ workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
 matchSheet = workbook.add_worksheet()
+currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 
 # Title User sheet
-userSheet.write("A1", "Actual Name")
+userSheet.write("A1", "User ID")
 userSheet.write("B1", "Username")
+userSheet.set_column("B:B", 20)
 userSheet.write("C1", "Email")
+userSheet.set_column("C:C", 30)
 userSheet.write("D1", "Password")
+userSheet.set_column("D:D", 20)
 userSheet.write("E1", "Wins")
 userSheet.write("F1", "Losses")
 
 # Writing User data to sheet
 for i in range(listNum):
-    userSheet.write('A' + str(userNum + 2), fullNameList[userNum])
+    userSheet.write('A' + str(userNum + 2), str(userNum + 1))
     userSheet.write('B' + str(userNum + 2), userList[userNum])
     userSheet.write('C' + str(userNum + 2), emailList[userNum])
     userSheet.write('D' + str(userNum + 2), passList[userNum])
@@ -152,16 +156,18 @@ for i in range(listNum):
     userNum += 1
 
 tournamentSheet.write("A1", "Region")
+tournamentSheet.set_column("A:A", 15)
 tournamentSheet.write("B1", "League")
+tournamentSheet.set_column("B:B", 10)
 tournamentSheet.write("C1", "Start Date")
 tournamentSheet.write("D1", "End Date")
 tournamentSheet.write("E1", "Buy In")
 tournamentSheet.write("F1", "Pay Out")
 
-for i in range(100):
+for i in range(99):
     tournamentSheet.write('A' + str(i + 2), regionList[i])
     tournamentSheet.write('B' + str(i + 2), leagueList[i])
-    tournamentSheet.write('E' + str(i + 2), buyIn[i])
-    tournamentSheet.write('F' + str(i + 2), payOut[i])
+    tournamentSheet.write('E' + str(i + 2), buyIn[i], currency)
+    tournamentSheet.write('F' + str(i + 2), payOut[i], currency)
 
 workbook.close()
