@@ -28,6 +28,16 @@ lossList = []
 userList = []
 passList = []
 
+# Tournament vars
+regionChoice = ["North America", "Europe", "South America", "Oceania", "Korea", "China", "South East Asia"]
+leagueChoice = ["Iron", "Bronze", "Silver", "Gold", "Platnium", "Diamond", "Immortal"]
+regionList = []
+leagueList = []
+startDateList = []
+endDateList = []
+buyIn = []
+payOut = []
+
 # Temp vars
 tempName = ""
 tempEmail = ""
@@ -35,7 +45,7 @@ tempMatch = 0
 
 # Number for checking whether more data is needed
 listNum = 0
-newNum = 0
+userNum = 0
 
 # Boolean to check whether name can be added
 canAdd = True
@@ -110,11 +120,18 @@ for i in range(listNum + 1000):
 
     canAdd = True
 
+while len(regionList) < 101:
+    regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
+    leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
+
+    buyIn.append(randint(0, 10))
+    payOut.append(randint(15, 100))
+
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
-matchSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
+matchSheet = workbook.add_worksheet()
 
 # Title User sheet
 userSheet.write("A1", "Actual Name")
@@ -126,11 +143,25 @@ userSheet.write("F1", "Losses")
 
 # Writing User data to sheet
 for i in range(listNum):
-    userSheet.write('A' + str(newNum + 2), fullNameList[newNum])
-    userSheet.write('B' + str(newNum + 2), userList[newNum])
-    userSheet.write('C' + str(newNum + 2), emailList[newNum])
-    userSheet.write('D' + str(newNum + 2), passList[newNum])
-    userSheet.write('E' + str(newNum + 2), str(winList[newNum]))
-    userSheet.write('F' + str(newNum + 2), str(lossList[newNum]))
-    newNum += 1
+    userSheet.write('A' + str(userNum + 2), fullNameList[userNum])
+    userSheet.write('B' + str(userNum + 2), userList[userNum])
+    userSheet.write('C' + str(userNum + 2), emailList[userNum])
+    userSheet.write('D' + str(userNum + 2), passList[userNum])
+    userSheet.write('E' + str(userNum + 2), str(winList[userNum]))
+    userSheet.write('F' + str(userNum + 2), str(lossList[userNum]))
+    userNum += 1
+
+tournamentSheet.write("A1", "Region")
+tournamentSheet.write("B1", "League")
+tournamentSheet.write("C1", "Start Date")
+tournamentSheet.write("D1", "End Date")
+tournamentSheet.write("E1", "Buy In")
+tournamentSheet.write("F1", "Pay Out")
+
+for i in range(100):
+    tournamentSheet.write('A' + str(i + 2), regionList[i])
+    tournamentSheet.write('B' + str(i + 2), leagueList[i])
+    tournamentSheet.write('E' + str(i + 2), buyIn[i])
+    tournamentSheet.write('F' + str(i + 2), payOut[i])
+
 workbook.close()
