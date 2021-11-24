@@ -7,10 +7,6 @@
 
 # Needed libraries
 from random import randint
-import base64
-
-# "pip install requests"
-import requests
 
 # "pip intall xlsxwriter", needed for outputting to spreadsheet
 import xlsxwriter
