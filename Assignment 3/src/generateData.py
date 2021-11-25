@@ -7,6 +7,7 @@
 
 # Needed libraries
 from random import randint
+import datetime
 
 # "pip intall xlsxwriter", needed for outputting to spreadsheet
 import xlsxwriter
@@ -39,11 +40,6 @@ endDateList = []
 buyIn = []
 payOut = []
 
-# Temp vars
-tempName = ""
-tempEmail = ""
-tempMatch = 0
-
 # Number for checking whether more data is needed
 listNum = 0
 userNum = 0
@@ -69,6 +65,11 @@ passwords = list( convert(rawPassword))
 while len(regionList) < 100:
     regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
     leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
+
+    tempDate = randint(1, 20)
+    tempMonth = randint(1, 12)
+    startDateList.append(datetime.datetime(2021, tempMonth, tempDate))
+    endDateList.append(datetime.datetime(2021, tempMonth, tempDate + 7))
 
     buyIn.append(randint(0, 10))
     payOut.append(randint(15, 100))
@@ -136,6 +137,7 @@ userSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
 matchSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
+date = workbook.add_format({'num_format': 'MMM DD'})
 
 # Title User sheet
 userSheet.write("A1", "User ID")
@@ -167,7 +169,9 @@ tournamentSheet.set_column("B:B", 15)
 tournamentSheet.write("C1", "League")
 tournamentSheet.set_column("C:C", 10)
 tournamentSheet.write("D1", "Start Date")
+tournamentSheet.set_column("D:D", 10)
 tournamentSheet.write("E1", "End Date")
+tournamentSheet.set_column("E:E", 10)
 tournamentSheet.write("F1", "Buy In")
 tournamentSheet.write("G1", "Pay Out")
 
@@ -175,7 +179,9 @@ for i in range(100):
     tournamentSheet.write('A' + str(i + 2), i + 1)
     tournamentSheet.write('B' + str(i + 2), regionList[i])
     tournamentSheet.write('C' + str(i + 2), leagueList[i])
-    tournamentSheet.write_number('F' + str(i + 2), buyIn[i], currency)
-    tournamentSheet.write_number('G' + str(i + 2), payOut[i], currency)
+    tournamentSheet.write('D' + str(i + 2), startDateList[i], date)
+    tournamentSheet.write('E' + str(i + 2), endDateList[i], date)
+    tournamentSheet.write('F' + str(i + 2), buyIn[i], currency)
+    tournamentSheet.write('G' + str(i + 2), payOut[i], currency)
 
 workbook.close()
