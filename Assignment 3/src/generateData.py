@@ -40,12 +40,13 @@ startDateList = []
 endDateList = []
 buyIn = []
 payOut = []
+maxBracketList = []
+bracketPos = 3
 
 # Match vars
 winnerList = []
 tournamentIdList = []
 tournamentId = 1
-maxBracketList = []
 bracketList = []
 
 # Bracket vars
@@ -113,6 +114,12 @@ while len(regionList) < 100:
     # Adding money values
     buyIn.append(randint(0, 10))
     payOut.append(randint(15, 100))
+    
+    maxBracketList.append(bracketPos)
+    if(bracketPos == 3):
+        bracketPos = 2
+    else:
+        bracketPos = 3
 
 for i in range(200):
     teamList.append(teams[i])
@@ -124,7 +131,6 @@ for i in range(50):
         
     for j in range(15):
         tournamentIdList.append(tournamentId)
-        maxBracketList.append(3)
         if(j < 4):
             bracketList.append(1)
         elif(j > 3 and j < 10):
@@ -136,7 +142,6 @@ for i in range(50):
 
     for j in range(5):
         tournamentIdList.append(tournamentId + 1)
-        maxBracketList.append(2)
         if(j < 2):
             bracketList.append(1)
         else:
@@ -243,26 +248,29 @@ for i in range(1000):
 # Title and format Tournament sheet
 tournamentSheet.write("A1", "Tournament ID")
 tournamentSheet.set_column("A:A", 15)
-tournamentSheet.write("B1", "Region")
-tournamentSheet.set_column("B:B", 15)
-tournamentSheet.write("C1", "League")
-tournamentSheet.set_column("C:C", 10)
-tournamentSheet.write("D1", "Start Date")
+tournamentSheet.write("B1", "Max Bracket Level")
+tournamentSheet.set_column("B:B",20)
+tournamentSheet.write("C1", "Region")
+tournamentSheet.set_column("C:C", 15)
+tournamentSheet.write("D1", "League")
 tournamentSheet.set_column("D:D", 10)
-tournamentSheet.write("E1", "End Date")
+tournamentSheet.write("E1", "Start Date")
 tournamentSheet.set_column("E:E", 10)
-tournamentSheet.write("F1", "Buy In")
-tournamentSheet.write("G1", "Pay Out")
+tournamentSheet.write("F1", "End Date")
+tournamentSheet.set_column("F:F", 10)
+tournamentSheet.write("G1", "Buy In")
+tournamentSheet.write("H1", "Pay Out")
 
 # Writing Tournament data to sheet
 for i in range(100):
     tournamentSheet.write('A' + str(i + 2), i + 1)
-    tournamentSheet.write('B' + str(i + 2), regionList[i])
-    tournamentSheet.write('C' + str(i + 2), leagueList[i])
-    tournamentSheet.write('D' + str(i + 2), startDateList[i], date)
-    tournamentSheet.write('E' + str(i + 2), endDateList[i], date)
-    tournamentSheet.write('F' + str(i + 2), buyIn[i], currency)
-    tournamentSheet.write('G' + str(i + 2), payOut[i], currency)
+    tournamentSheet.write('B' + str(i + 2), maxBracketList[i])
+    tournamentSheet.write('C' + str(i + 2), regionList[i])
+    tournamentSheet.write('D' + str(i + 2), leagueList[i])
+    tournamentSheet.write('E' + str(i + 2), startDateList[i], date)
+    tournamentSheet.write('F' + str(i + 2), endDateList[i], date)
+    tournamentSheet.write('G' + str(i + 2), buyIn[i], currency)
+    tournamentSheet.write('H' + str(i + 2), payOut[i], currency)
 
 # Title and format Bracket sheet
 bracketSheet.write("A1", "Max Bracket Level")
@@ -281,18 +289,15 @@ matchSheet.write("B1", "Match Winner")
 matchSheet.set_column("B:B", 30)
 matchSheet.write("C1", "Bracket Level")
 matchSheet.set_column("C:C", 15)
-matchSheet.write("D1", "Max Bracket Level")
+matchSheet.write("D1", "Tournament ID")
 matchSheet.set_column("D:D", 15)
-matchSheet.write("E1", "Tournament ID")
-matchSheet.set_column("E:E", 15)
 
 # Writing Match data to sheet
 for i in range(1000):
     matchSheet.write('A' + str(i + 2), i + 1)
     matchSheet.write('B' + str(i + 2), winnerList[i])
     matchSheet.write('C' + str(i + 2), bracketList[i])
-    matchSheet.write('D' + str(i + 2), maxBracketList[i])
-    matchSheet.write('E' + str(i + 2), tournamentIdList[i])
+    matchSheet.write('D' + str(i + 2), tournamentIdList[i])
 
 # Title and format Team sheet
 teamSheet.write("A1", "Team ID")
