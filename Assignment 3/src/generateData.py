@@ -3,7 +3,7 @@
 # Written by: Rohan Kamra Lyons
 # Credits: jeanphorn on GitHub for username and password lists
 
-# TODO Rank (and wins based off that), matches (and match comments), fix tournament based off the fact that you need 6/14 teams per tournament, add excel links in match cells to tournament cells/match to players/tournament to player
+# TODO #1 Rank (and wins based off that), matches (and match comments), fix tournament based off the fact that you need 6/14 teams per tournament, add excel links in match cells to tournament cells/match to players/tournament to player
 # 60 IN SILVER, 40 IN GOLD therefore 20 teams each reagular rank (500) + extras (60 * 5 = 300, 40 * 5 = 200)
 
 # Needed libraries
@@ -48,6 +48,11 @@ tournamentId = 1
 maxBracketList = []
 bracketList = []
 
+# Team vars
+teamList = []
+teamWins = []
+teamLoss = []
+
 # Number for checking whether more data is needed
 listNum = 0
 userNum = 0
@@ -64,12 +69,18 @@ f = open('Assignment 3\\src\\passlist.txt', 'r')
 rawPassword = f.read()
 rawPassword = [rawPassword]
 
-# Converting usernames and passwords
+# Grabbing team names
+f = open('Assignment 3\\src\\tempteamlist.txt', 'r')
+rawTeams = f.read()
+rawTeams = [rawTeams]
+
+# Converting usernames, passwords and teams
 def convert(lst):
     return '\n'.join(lst).split()
  
 usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
+teams = list( convert(rawTeams))
 
 # Assigning tournament values
 while len(regionList) < 100:
@@ -88,6 +99,11 @@ while len(regionList) < 100:
     buyIn.append(randint(0, 10))
     payOut.append(randint(15, 100))
 
+for i in range(200):
+    teamList.append(teams[i])
+    teamWins.append(randint(0, 5))
+    teamLoss.append(randint(0, 5))
+
 # 
 for i in range(50):
         
@@ -101,6 +117,8 @@ for i in range(50):
         else: 
             bracketList.append(3)
 
+        winnerList.append(teamList[randint(0, 199)])
+
     for j in range(5):
         tournamentIdList.append(tournamentId + 1)
         maxBracketList.append(2)
@@ -108,6 +126,8 @@ for i in range(50):
             bracketList.append(1)
         else:
             bracketList.append(2)
+
+        winnerList.append(teamList[randint(0, 199)])
 
     tournamentId += 2
 
@@ -177,6 +197,7 @@ workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
 matchSheet = workbook.add_worksheet()
+teamSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
@@ -230,7 +251,7 @@ for i in range(100):
 # Title and format Match sheet
 matchSheet.write("A1", "Match ID")
 matchSheet.write("B1", "Match Winner")
-matchSheet.set_column("B:B", 15)
+matchSheet.set_column("B:B", 30)
 matchSheet.write("C1", "Bracket Level")
 matchSheet.set_column("C:C", 15)
 matchSheet.write("D1", "Max Bracket Level")
@@ -241,9 +262,23 @@ matchSheet.set_column("E:E", 15)
 # Writing Match data to sheet
 for i in range(1000):
     matchSheet.write('A' + str(i + 2), i + 1)
+    matchSheet.write('B' + str(i + 2), winnerList[i])
     matchSheet.write('C' + str(i + 2), bracketList[i])
     matchSheet.write('D' + str(i + 2), maxBracketList[i])
     matchSheet.write('E' + str(i + 2), tournamentIdList[i])
 
+# Title and format Team sheet
+teamSheet.write("A1", "Team ID")
+teamSheet.write("B1", "Team Name")
+teamSheet.set_column("B:B", 30)
+teamSheet.write("C1", "Team Wins")
+teamSheet.write("D1", "Team Losses")
+
+# Writing Team data to sheet
+for i in range(200):
+    teamSheet.write('A' + str(i + 2), i + 1)
+    teamSheet.write('B' + str(i + 2), teamList[i])
+    teamSheet.write('C' + str(i + 2), teamWins[i])
+    teamSheet.write('D' + str(i + 2), teamLoss[i])
 
 workbook.close()
