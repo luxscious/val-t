@@ -33,7 +33,7 @@ rankList = []
 
 # Tournament vars
 regionChoice = ["North America", "Europe", "South America", "Oceania", "Korea", "China", "South East Asia"]
-leagueChoice = ["Iron", "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Immortal"]
+leagueChoice = ["Iron", "Bronze", "Silver", "Silver", "Silver", "Gold", "Gold", "Platinum", "Diamond", "Immortal"]
 regionList = []
 leagueList = []
 startDateList = []
@@ -99,11 +99,11 @@ for i in range(50):
 tournamentId = 1
 
 # Assigning tournament values
-while len(regionList) < 100:
+for i in range(100):
 
     # Adding region and league values
     regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
-    leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
+    leagueList.append(leagueChoice[int(i/10)])
 
     # Adding date values
     tempDate = randint(1, 20)
@@ -210,15 +210,16 @@ for i in range(listNum + 1000):
 
 # Adds the ranks to user lists
 for i in range(1000):
-    rankList.append(leagueList[int(i / 10)])
+    rankList.append(leagueChoice[int(i / 100)])
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
-bracketSheet = workbook.add_worksheet()
 matchSheet = workbook.add_worksheet()
+bracketSheet = workbook.add_worksheet()
 teamSheet = workbook.add_worksheet()
+teamPlayerSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
@@ -312,5 +313,14 @@ for i in range(200):
     teamSheet.write('B' + str(i + 2), teamList[i])
     teamSheet.write('C' + str(i + 2), teamWins[i])
     teamSheet.write('D' + str(i + 2), teamLoss[i])
+
+# Title and format TeamPlayer sheet
+teamPlayerSheet.write("A1", "User ID")
+teamPlayerSheet.write("B1", "Team ID")
+
+#Writing TeamPlayer data to sheet
+for i in range(1000):
+    teamPlayerSheet.write('A' + str(i + 2), i + 1)
+    teamPlayerSheet.write('B' + str(i + 2), int((i + 5) / 5))
 
 workbook.close()
