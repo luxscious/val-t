@@ -3,7 +3,8 @@
 # Written by: Rohan Kamra Lyons
 # Credits: jeanphorn on GitHub for username and password lists
 
-# TODO Rank (and wins based off that), matches
+# TODO Rank (and wins based off that), matches (and match comments), fix tournament based off the fact that you need 6/14 teams per tournament, add excel links in match cells to tournament cells/match to players/tournament to player
+# 60 IN SILVER, 40 IN GOLD therefore 20 teams each reagular rank (500) + extras (60 * 5 = 300, 40 * 5 = 200)
 
 # Needed libraries
 from random import randint
@@ -39,6 +40,13 @@ startDateList = []
 endDateList = []
 buyIn = []
 payOut = []
+
+# Match vars
+winnerList = []
+tournamentIdList = []
+tournamentId = 1
+maxBracketList = []
+bracketList = []
 
 # Number for checking whether more data is needed
 listNum = 0
@@ -79,6 +87,30 @@ while len(regionList) < 100:
     # Adding money values
     buyIn.append(randint(0, 10))
     payOut.append(randint(15, 100))
+
+# 
+for i in range(50):
+        
+    for j in range(15):
+        tournamentIdList.append(tournamentId)
+        maxBracketList.append(3)
+        if(j < 4):
+            bracketList.append(1)
+        elif(j > 3 and j < 10):
+            bracketList.append(2)
+        else: 
+            bracketList.append(3)
+
+    for j in range(5):
+        tournamentIdList.append(tournamentId + 1)
+        maxBracketList.append(2)
+        if(j < 2):
+            bracketList.append(1)
+        else:
+            bracketList.append(2)
+
+    tournamentId += 2
+
 
 # Checks whether there are 1000 names yet
 while listNum < 1000: 
@@ -194,5 +226,24 @@ for i in range(100):
     tournamentSheet.write('E' + str(i + 2), endDateList[i], date)
     tournamentSheet.write('F' + str(i + 2), buyIn[i], currency)
     tournamentSheet.write('G' + str(i + 2), payOut[i], currency)
+
+# Title and format Match sheet
+matchSheet.write("A1", "Match ID")
+matchSheet.write("B1", "Match Winner")
+matchSheet.set_column("B:B", 15)
+matchSheet.write("C1", "Bracket Level")
+matchSheet.set_column("C:C", 15)
+matchSheet.write("D1", "Max Bracket Level")
+matchSheet.set_column("D:D", 15)
+matchSheet.write("E1", "Tournament ID")
+matchSheet.set_column("E:E", 15)
+
+# Writing Match data to sheet
+for i in range(1000):
+    matchSheet.write('A' + str(i + 2), i + 1)
+    matchSheet.write('C' + str(i + 2), bracketList[i])
+    matchSheet.write('D' + str(i + 2), maxBracketList[i])
+    matchSheet.write('E' + str(i + 2), tournamentIdList[i])
+
 
 workbook.close()
