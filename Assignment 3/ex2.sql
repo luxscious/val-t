@@ -5,7 +5,7 @@ USE valT;
 CREATE TABLE IF NOT EXISTS User( 
 userId BIGINT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(userId),
-name VARCHAR(30),
+name VARCHAR(30) UNIQUE,
 email VARCHAR(30),
 password VARCHAR(30) 
 );
@@ -19,9 +19,8 @@ tLosses INT
 );
 
 CREATE TABLE IF NOT EXISTS Agent(
-agentId INT NOT NULL AUTO_INCREMENT,
-PRIMARY KEY(agentId),
-aName VARCHAR(30) NOT NULL,
+aName VARCHAR(30) NOT NULL PRIMARY KEY,
+aType VARCHAR(30) NOT NULL,
 aWins INT,
 aLosses INT
 );
@@ -30,18 +29,20 @@ CREATE TABLE IF NOT EXISTS Tournament(
 tournamentId BIGINT NOT NULL PRIMARY KEY,
 region VARCHAR(30) NOT NULL,
 league VARCHAR(30) NOT NULL,
-startDate VARCHAR(30) NOT NULL,
-endDate VARCHAR(30),
+startDate DATE NOT NULL,
+endDate DATE,
 buyIn INT,
 payOut INT
 );
 CREATE TABLE IF NOT EXISTS Player(
 	userId BIGINT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL,
     pRank CHAR(20),
     pWin INT,
     pLoss INT,
 	PRIMARY KEY (userId),
-    FOREIGN KEY (userId) REFERENCES User(userId)
+    FOREIGN KEY (userId) REFERENCES User(userId),
+    FOREIGN KEY (username) REFERENCES User(name)
 );
 
 
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Bracket(
 
 CREATE TABLE IF NOT EXISTS VMatch(
 	matchId BIGINT NOT NULL AUTO_INCREMENT,
-    mWinner CHAR(50),
+	mWinner CHAR(50),
     bracketLevel INT,
     maxBracketLevel INT,
     tournamentId BIGINT NOT NULL,
@@ -130,4 +131,20 @@ CREATE TABLE IF NOT EXISTS SubscribedToTournament(
     FOREIGN KEY (userId) REFERENCES User(userId)
 );
 
+CREATE TABLE IF NOT EXISTS TeamPlayers(
+userId BIGINT NOT NULL,
+teamId BIGINT NOT NULL,
+PRIMARY KEY (userId,teamId),
+FOREIGN KEY (userId) REFERENCES Player(userId),
+FOREIGN KEY (teamId) REFERENCES Team(teamId)
+);
 
+CREATE TABLE IF NOT EXISTS AgentRoster(
+aName VARCHAR(30) NOT NULL,
+matchId BIGINT NOT NULL,
+teamId BIGINT NOT NULL,
+PRIMARY KEY (aName, matchId,teamId),
+FOREIGN KEY (aName) REFERENCES Agent(aName),
+FOREIGN KEY (matchId) REFERENCES VMatch(matchId),
+FOREIGN KEY (teamId) REFERENCES Team(teamId)
+);
