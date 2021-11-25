@@ -3,7 +3,7 @@
 # Written by: Rohan Kamra Lyons
 # Credits: jeanphorn on GitHub for username and password lists
 
-# TODO Rank (and wins based off that), matches and tournaments
+# TODO Rank (and wins based off that), matches
 
 # Needed libraries
 from random import randint
@@ -56,21 +56,27 @@ f = open('Assignment 3\\src\\passlist.txt', 'r')
 rawPassword = f.read()
 rawPassword = [rawPassword]
 
+# Converting usernames and passwords
 def convert(lst):
     return '\n'.join(lst).split()
  
 usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
 
+# Assigning tournament values
 while len(regionList) < 100:
+
+    # Adding region and league values
     regionList.append(regionChoice[randint(0, len(regionChoice) - 1)])
     leagueList.append(leagueChoice[randint(0, len(leagueChoice) - 1)])
 
+    # Adding date values
     tempDate = randint(1, 20)
     tempMonth = randint(1, 12)
     startDateList.append(datetime.datetime(2021, tempMonth, tempDate))
-    endDateList.append(datetime.datetime(2021, tempMonth, tempDate + 7))
+    endDateList.append(datetime.datetime(2021, tempMonth, tempDate + randint(6, 8)))
 
+    # Adding money values
     buyIn.append(randint(0, 10))
     payOut.append(randint(15, 100))
 
@@ -103,6 +109,7 @@ while listNum < 1000:
             lossList.append(20 - tempMatch)
 
             listNum += 1
+
         canAdd = True
 
 # Adding user and pass with buffer
@@ -126,10 +133,12 @@ for i in range(listNum + 1000):
     if(canAdd):
         userList.append(tempUser)
         passList.append(tempPass)
-        rankList.append(leagueList[i % 100])
-
 
     canAdd = True
+
+# Adds the ranks to user lists
+for i in range(1000):
+    rankList.append(leagueList[int(i / 10)])
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
@@ -139,7 +148,7 @@ matchSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
-# Title User sheet
+# Title and format User sheet
 userSheet.write("A1", "User ID")
 userSheet.write("B1", "Username")
 userSheet.set_column("B:B", 20)
@@ -162,6 +171,7 @@ for i in range(1000):
     userSheet.write('F' + str(i + 2), str(winList[i]))
     userSheet.write('G' + str(i + 2), str(lossList[i]))
 
+# Title and format Tournament sheet
 tournamentSheet.write("A1", "Tournament ID")
 tournamentSheet.set_column("A:A", 15)
 tournamentSheet.write("B1", "Region")
@@ -175,6 +185,7 @@ tournamentSheet.set_column("E:E", 10)
 tournamentSheet.write("F1", "Buy In")
 tournamentSheet.write("G1", "Pay Out")
 
+# Writing Tournament data to sheet
 for i in range(100):
     tournamentSheet.write('A' + str(i + 2), i + 1)
     tournamentSheet.write('B' + str(i + 2), regionList[i])
