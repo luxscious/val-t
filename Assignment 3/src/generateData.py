@@ -58,6 +58,12 @@ teamList = []
 teamWins = []
 teamLoss = []
 
+# Roster vars
+rankNums = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180]
+doubleCheck = False
+rosterMatch = []
+rosterTeam = []
+
 # Number for checking whether more data is needed
 listNum = 0
 userNum = 0
@@ -212,6 +218,12 @@ for i in range(listNum + 1000):
 for i in range(1000):
     rankList.append(leagueChoice[int(i / 100)])
 
+for i in range(200):
+    tempRosterMatch = randint(0, 999)
+    rosterMatch.append(tempRosterMatch)
+    rosterTeam.append(rankNums[int(tempRosterMatch/100)] + randint(0, 19))
+
+
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
@@ -220,6 +232,7 @@ matchSheet = workbook.add_worksheet()
 bracketSheet = workbook.add_worksheet()
 teamSheet = workbook.add_worksheet()
 teamPlayerSheet = workbook.add_worksheet()
+rosterSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
@@ -318,9 +331,18 @@ for i in range(200):
 teamPlayerSheet.write("A1", "User ID")
 teamPlayerSheet.write("B1", "Team ID")
 
-#Writing TeamPlayer data to sheet
+# Writing TeamPlayer data to sheet
 for i in range(1000):
     teamPlayerSheet.write('A' + str(i + 2), i + 1)
     teamPlayerSheet.write('B' + str(i + 2), int((i + 5) / 5))
+
+# Title and format Roster sheet
+rosterSheet.write("A1", "Match ID")
+rosterSheet.write("B1", "Team ID")
+
+# Writing Roster data to sheet
+for i in range(200):
+    rosterSheet.write('A' + str(i + 2), rosterMatch[i])
+    rosterSheet.write('B' + str(i + 2), rosterTeam[i])
 
 workbook.close()
