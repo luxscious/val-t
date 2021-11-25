@@ -226,13 +226,13 @@ for i in range(200):
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
-userSheet = workbook.add_worksheet()
-tournamentSheet = workbook.add_worksheet()
-matchSheet = workbook.add_worksheet()
-bracketSheet = workbook.add_worksheet()
-teamSheet = workbook.add_worksheet()
-teamPlayerSheet = workbook.add_worksheet()
-rosterSheet = workbook.add_worksheet()
+userSheet = workbook.add_worksheet("User")
+tournamentSheet = workbook.add_worksheet("Tournament")
+matchSheet = workbook.add_worksheet("Match")
+bracketSheet = workbook.add_worksheet("Bracket")
+teamSheet = workbook.add_worksheet("Team")
+teamPlayerSheet = workbook.add_worksheet("TeamPlayer")
+rosterSheet = workbook.add_worksheet("Roster")
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
