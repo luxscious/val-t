@@ -48,6 +48,10 @@ tournamentId = 1
 maxBracketList = []
 bracketList = []
 
+# Bracket vars
+bracketMax = []
+bracketTournament = []
+
 # Team vars
 teamList = []
 teamWins = []
@@ -81,6 +85,17 @@ def convert(lst):
 usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
 teams = list( convert(rawTeams))
+
+for i in range(50):
+    for i in range(3):
+        bracketMax.append(3)
+        bracketTournament.append(tournamentId)
+    for i in range(2):
+        bracketMax.append(2)
+        bracketTournament.append(tournamentId + 1)
+    tournamentId += 2
+
+tournamentId = 1
 
 # Assigning tournament values
 while len(regionList) < 100:
@@ -196,6 +211,7 @@ for i in range(1000):
 workbook = xlsxwriter.Workbook('data.xlsx')
 userSheet = workbook.add_worksheet()
 tournamentSheet = workbook.add_worksheet()
+bracketSheet = workbook.add_worksheet()
 matchSheet = workbook.add_worksheet()
 teamSheet = workbook.add_worksheet()
 currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
@@ -247,6 +263,17 @@ for i in range(100):
     tournamentSheet.write('E' + str(i + 2), endDateList[i], date)
     tournamentSheet.write('F' + str(i + 2), buyIn[i], currency)
     tournamentSheet.write('G' + str(i + 2), payOut[i], currency)
+
+# Title and format Bracket sheet
+bracketSheet.write("A1", "Max Bracket Level")
+bracketSheet.set_column("A:A", 15)
+bracketSheet.write("B1", "Tournament ID")
+bracketSheet.set_column("B:B", 15)
+
+# Writing Bracket data to sheet
+for i in range(250):
+    bracketSheet.write('A' + str(i + 2), bracketMax[i])
+    bracketSheet.write('B' + str(i + 2), bracketTournament[i])
 
 # Title and format Match sheet
 matchSheet.write("A1", "Match ID")
