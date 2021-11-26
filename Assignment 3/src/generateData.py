@@ -226,7 +226,6 @@ bracketSheet = workbook.add_worksheet("Bracket")
 teamSheet = workbook.add_worksheet("Team")
 teamPlayerSheet = workbook.add_worksheet("TeamPlayer")
 rosterSheet = workbook.add_worksheet("Roster")
-currency = workbook.add_format({'num_format': '[$$-409]#,##0.00'})
 date = workbook.add_format({'num_format': 'MMM DD'})
 
 # Title and format User sheet
@@ -276,8 +275,8 @@ for i in range(100):
     tournamentSheet.write('D' + str(i + 2), leagueList[i])
     tournamentSheet.write('E' + str(i + 2), startDateList[i], date)
     tournamentSheet.write('F' + str(i + 2), endDateList[i], date)
-    tournamentSheet.write('G' + str(i + 2), buyIn[i], currency)
-    tournamentSheet.write('H' + str(i + 2), payOut[i], currency)
+    tournamentSheet.write('G' + str(i + 2), buyIn[i])
+    tournamentSheet.write('H' + str(i + 2), payOut[i])
 
 # Title and format Bracket sheet
 bracketSheet.write("A1", "Max Bracket Level")
