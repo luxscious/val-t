@@ -70,8 +70,9 @@ CREATE TABLE IF NOT EXISTS Subscriber(
 );
 
 CREATE TABLE IF NOT EXISTS Company(
-userId BIGINT NOT NULL,
-PRIMARY KEY(userId)
+	userId BIGINT NOT NULL,
+    FOREIGN KEY (userId) References User(userId),
+	PRIMARY KEY(userId)
 );
 
 CREATE TABLE IF NOT EXISTS Sponsor(
