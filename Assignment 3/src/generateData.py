@@ -41,7 +41,7 @@ endDateList = []
 buyIn = []
 payOut = []
 maxBracketList = []
-bracketPos = 3
+bracketPos = 15
 
 # Match vars
 winnerList = []
@@ -122,10 +122,10 @@ for i in range(100):
     payOut.append(randint(15, 100))
     
     maxBracketList.append(bracketPos)
-    if(bracketPos == 3):
-        bracketPos = 2
+    if(bracketPos == 15):
+        bracketPos = 5
     else:
-        bracketPos = 3
+        bracketPos = 15
 
 for i in range(200):
     teamList.append(teams[i])
@@ -210,11 +210,12 @@ for i in range(listNum + 1000):
 for i in range(1000):
     rankList.append(leagueChoice[int(i / 100)])
 
-for i in range(200):
-    tempRosterMatch = randint(0, 999)
-    rosterMatch.append(tempRosterMatch)
-    rosterTeam.append(rankNums[int(tempRosterMatch/100)] + randint(0, 19))
 
+for i in range(100):
+    tempRosterMatch = randint(0, 999)
+    for j in range(2):
+        rosterMatch.append(i + 1)
+    rosterTeam.append(i + 1)
 
 # Create excel sheet
 workbook = xlsxwriter.Workbook('data.xlsx')
@@ -333,7 +334,7 @@ rosterSheet.write("A1", "Match ID")
 rosterSheet.write("B1", "Team ID")
 
 # Writing Roster data to sheet
-for i in range(200):
+for i in range(100):
     rosterSheet.write('A' + str(i + 2), rosterMatch[i])
     rosterSheet.write('B' + str(i + 2), rosterTeam[i])
 
