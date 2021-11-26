@@ -1,5 +1,5 @@
 
--- DROP DATABASE valT;
+DROP DATABASE valT;
 CREATE DATABASE valT;
 USE valT;
 CREATE TABLE IF NOT EXISTS User( 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS SubscribedToTeam(
     userId BIGINT NOT NULL,
     teamId BIGINT NOT NULL,
 	PRIMARY KEY (userId,teamId),
-    FOREIGN KEY (userId) REFERENCES User(userId),
+    FOREIGN KEY (userId) REFERENCES Subscriber(userId),
 	FOREIGN KEY (teamId) REFERENCES Team(teamId)
 );
 CREATE TABLE IF NOT EXISTS SubscribedToTournament(
@@ -130,6 +130,13 @@ FOREIGN KEY (userId) REFERENCES Player(userId),
 FOREIGN KEY (teamId) REFERENCES Team(teamId)
 );
 
+CREATE TABLE IF NOT EXISTS SubscribedToPlayer(
+	userIdP BIGINT NOT NULL,
+	userIdS BIGINT NOT NULL,
+	PRIMARY KEY (userIdP,userIdS),
+    FOREIGN KEY (userIdP) REFERENCES Player(userId),
+	FOREIGN KEY (userIdS) REFERENCES Subscriber(userId)
+);
 CREATE TABLE IF NOT EXISTS AgentRoster(
 aName VARCHAR(30) NOT NULL,
 matchId BIGINT NOT NULL,
@@ -139,3 +146,20 @@ FOREIGN KEY (aName) REFERENCES Agent(aName),
 FOREIGN KEY (matchId) REFERENCES VMatch(matchId),
 FOREIGN KEY (teamId) REFERENCES Team(teamId)
 );
+
+DESCRIBE User;
+DESCRIBE Team;
+DESCRIBE Agent;
+DESCRIBE Tournament;
+DESCRIBE Player;
+DESCRIBE Subscriber;
+DESCRIBE Sponsor;
+DESCRIBE VMatch;
+DESCRIBE Roster;
+DESCRIBE SponsorTournament;
+DESCRIBE TeamSponsored;
+DESCRIBE SubscribedToTeam;
+DESCRIBE SubscribedToPlayer;
+DESCRIBE Company;
+DESCRIBE TeamPlayers;
+DESCRIBE AgentRoster;
