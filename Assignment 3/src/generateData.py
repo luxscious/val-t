@@ -137,21 +137,13 @@ for i in range(50):
         
     for j in range(15):
         tournamentIdList.append(tournamentId)
-        if(j < 4):
-            bracketList.append(1)
-        elif(j > 3 and j < 10):
-            bracketList.append(2)
-        else: 
-            bracketList.append(3)
+        bracketList.append(j)
 
         winnerList.append(teamList[randint(0, 199)])
 
     for j in range(5):
         tournamentIdList.append(tournamentId + 1)
-        if(j < 2):
-            bracketList.append(1)
-        else:
-            bracketList.append(2)
+        bracketList.append(j)
 
         winnerList.append(teamList[randint(0, 199)])
 
