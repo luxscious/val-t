@@ -95,10 +95,10 @@ teams = list( convert(rawTeams))
 
 for i in range(50):
     for i in range(3):
-        bracketMax.append(3)
+        bracketMax.append(15)
         bracketTournament.append(tournamentId)
     for i in range(2):
-        bracketMax.append(2)
+        bracketMax.append(5)
         bracketTournament.append(tournamentId + 1)
     tournamentId += 2
 
@@ -137,13 +137,13 @@ for i in range(50):
         
     for j in range(15):
         tournamentIdList.append(tournamentId)
-        bracketList.append(j)
+        bracketList.append(j + 1)
 
         winnerList.append(teamList[randint(0, 199)])
 
     for j in range(5):
         tournamentIdList.append(tournamentId + 1)
-        bracketList.append(j)
+        bracketList.append(j + 1)
 
         winnerList.append(teamList[randint(0, 199)])
 
