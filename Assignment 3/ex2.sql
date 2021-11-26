@@ -1,5 +1,5 @@
 
-DROP DATABASE valT;
+-- DROP DATABASE valT;
 CREATE DATABASE valT;
 USE valT;
 CREATE TABLE IF NOT EXISTS User( 
@@ -27,6 +27,7 @@ aLosses INT
 
 CREATE TABLE IF NOT EXISTS Tournament(
 tournamentId BIGINT NOT NULL PRIMARY KEY,
+maxBracketLevel INT NOT NULL,
 region VARCHAR(30) NOT NULL,
 league VARCHAR(30) NOT NULL,
 startDate DATE NOT NULL,
@@ -45,22 +46,12 @@ CREATE TABLE IF NOT EXISTS Player(
     FOREIGN KEY (username) REFERENCES User(name)
 );
 
-
-CREATE TABLE IF NOT EXISTS Bracket(
-    maxBracketLevel INT NOT NULL UNIQUE,
-    tournamentId BIGINT NOT NULL,
-	PRIMARY KEY (maxBracketLevel),
-    FOREIGN KEY (tournamentId) REFERENCES Tournament(tournamentId)
-);
-
 CREATE TABLE IF NOT EXISTS VMatch(
 	matchId BIGINT NOT NULL AUTO_INCREMENT,
 	mWinner CHAR(50),
     bracketLevel INT,
-    maxBracketLevel INT,
     tournamentId BIGINT NOT NULL,
 	PRIMARY KEY (matchId),
-    FOREIGN KEY (maxBracketLevel) REFERENCES Bracket(maxBracketLevel),
     FOREIGN KEY (tournamentId) REFERENCES Tournament(tournamentId)
 );
 
