@@ -1,0 +1,3 @@
+To import the csv files into sql, you must copy the csv files matches, players, playerTeams, rosters, teams, and users into the sql data folder for the schema. 
+Example path: C:\ProgramData\MySQL\MySQL Server 8.0\Data\{schema-name}
+If you don't do this, the sql import data file won't know where the files are.
