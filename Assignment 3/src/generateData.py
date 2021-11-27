@@ -3,9 +3,6 @@
 # Written by: Rohan Kamra Lyons
 # Credits: jeanphorn on GitHub for username and password lists
 
-# TODO #1 Rank (and wins based off that), matches (and match comments), fix tournament based off the fact that you need 6/14 teams per tournament, add excel links in match cells to tournament cells/match to players/tournament to player
-# 60 IN SILVER, 40 IN GOLD therefore 20 teams each reagular rank (500) + extras (60 * 5 = 300, 40 * 5 = 200)
-
 # Needed libraries
 from random import randint
 import datetime
@@ -93,15 +90,21 @@ usernames = list( convert(rawUsername))
 passwords = list( convert(rawPassword))
 teams = list( convert(rawTeams))
 
+# Assigning bracket values
 for i in range(50):
+
+    # Tournaments with 3 brackets
     for i in range(3):
         bracketMax.append(15)
         bracketTournament.append(tournamentId)
+
+    # Tournaments with 2 brackets
     for i in range(2):
         bracketMax.append(5)
         bracketTournament.append(tournamentId + 1)
     tournamentId += 2
 
+# Reseting the tournament ID value
 tournamentId = 1
 
 # Assigning tournament values
@@ -127,20 +130,23 @@ for i in range(100):
     else:
         bracketPos = 15
 
+# Assigning team values
 for i in range(200):
     teamList.append(teams[i])
     teamWins.append(randint(0, 5))
     teamLoss.append(randint(0, 5))
 
-# 
+# Assigning match values
 for i in range(50):
         
+    # 15 match tournaments
     for j in range(15):
         tournamentIdList.append(tournamentId)
         bracketList.append(j + 1)
 
         winnerList.append(teamList[randint(0, 199)])
 
+    # 5 match tournaments
     for j in range(5):
         tournamentIdList.append(tournamentId + 1)
         bracketList.append(j + 1)
@@ -337,4 +343,5 @@ for i in range(100):
     rosterSheet.write('A' + str(i + 2), rosterMatch[i])
     rosterSheet.write('B' + str(i + 2), rosterTeam[i])
 
+# Closing the workbook
 workbook.close()
