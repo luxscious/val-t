@@ -22,4 +22,4 @@ SELECT * FROM TopAgents;
 
 INSERT INTO TeamLeaderBoard
 VALUES ('luxscious');
-SELECT * FROM TeamLeaderBoard WHERE tName='luxscious';
+SELECT * FROM TeamLeaderBoard;

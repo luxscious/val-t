@@ -1,5 +1,5 @@
 
-DROP DATABASE valT;
+-- DROP DATABASE valT;
 CREATE DATABASE valT;
 USE valT;
 CREATE TABLE IF NOT EXISTS User( 
@@ -37,7 +37,7 @@ payOut INT
 );
 CREATE TABLE IF NOT EXISTS Player(
 	userId BIGINT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
+    username VARCHAR(30),
     pRank CHAR(20),
     pWin INT,
     pLoss INT,

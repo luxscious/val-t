@@ -7,10 +7,10 @@ SET password =  CASE userId
            ELSE password
            END
            WHERE userId IN('1','2','3');
-           
+
 -- 2 
-INSERT INTO Player (userId)
-SELECT userId 
+INSERT IGNORE INTO Sponsor (userId)
+SELECT (userId)
 FROM User 
 WHERE email 
 LIKE '%@mail.com';
