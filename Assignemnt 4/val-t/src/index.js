@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
-import Home from "./Home";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import Leaderboard from "./Leaderboard";
-import Tournaments from "./Tournaments";
-import Profile from "./Profile";
+import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
+import SignUp from "./pages/SignUp.js";
+import Leaderboard from "./pages/Leaderboard.js";
+import Tournaments from "./pages/Tournaments.js";
+import Profile from "./pages/Profile.js";
 
 ReactDOM.render(
   <BrowserRouter>
