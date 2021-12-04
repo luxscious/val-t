@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { AppBar, Toolbar, CssBaseline, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import logo from "../assets/Val-T Header Logo.svg";
 
@@ -23,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#FF4655",
     },
+    letterSpacing: "15%",
   },
   toolBar: {
     display: "flex",
@@ -36,7 +31,9 @@ function Navbar() {
     <AppBar position="static" className={classes.bar}>
       <CssBaseline />
       <Toolbar className={classes.toolBar}>
-        <img src={logo} alt="Logo" />
+        <Link to="/">
+          <img src={logo} alt="Logo" />
+        </Link>
         <div className={classes.navlinks}>
           <Link to="/Tournaments" className={classes.link}>
             TOURNAMENTS
