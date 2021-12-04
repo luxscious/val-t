@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#FF4655",
     },
-    letterSpacing: "15%",
+    letterSpacing: 1.15,
   },
   toolBar: {
     display: "flex",
