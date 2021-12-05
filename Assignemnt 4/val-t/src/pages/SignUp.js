@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   //put css here
-  container: {
+  page: {
     position: "fixed",
     padding: 0,
     margin: 0,
@@ -25,40 +25,35 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  content: {
+  /*content: {
     display: "flex",
     flexDirection: "column",
     marginBottom: 65, //Toolbar takes up 65px
-  },
+  },*/
 
-  loginRectangle: {
+  container: {
     position: "fixed",
-    padding: 0,
-    margin: 0,
-
     borderRadius: 30,
-
-    width: "60%",
-    height: "60%",
-    backgroundImage: `url(${whiteRect})`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover ",
+    width: 718,
+    height: 540,
+    opacity: "50%",
+    backgroundColor: "#FFFFFF",
+    margin: "auto",
     zIndex: "-1",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-
+    display: "flex"
+    //justifyContent: "center",
   },
+
   button: {
-    alignSelf: "center",
+    textAlign: "center",
     textDecoration: "none",
-    width: 209,
-    height: 45,
+    width: 171,
+    height: 51,
+    marginBottom: 0,
   },
 
   buttonText: {
-    marginTop: 40,
+    marginBottom: 0,
     padding: 8,
     textAlign: "center",
     backgroundColor: "#FF4655",
@@ -74,15 +69,15 @@ const useStyles = makeStyles((theme) => ({
     },
   }, 
 input: {
-
   color: "white",
-  width: "30%", 
-  height: "5.5%",
+  width: 192, 
+  height: 56,
   borderRadius: 6,
   fontFamily: "Mark Pro",
-  backgroundPosition: "center",
-  display: "flex",
-  flexDirection: "column",
+  marginLeft: 40,
+  //backgroundPosition: "center",
+  //display: "flex",
+  //flexDirection: "column",
 
 },
 inputText: {
@@ -93,19 +88,18 @@ inputText: {
 }, 
 }));
 
-
 export default function SignUp() {
   const classes = useStyles();
   return (
     
-     <div className={classes.container}> 
-        <div className={classes.loginRectangle}/> 
-        <TextField id="filled-basic" className={classes.input} style={{backgroundColor:"white"}} InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}label="USERNAME" variant="filled"  InputProps={{disableUnderline: true}}/>      
+     <div className={classes.page}> 
+        <div className={classes.container}/> 
+        <TextField id="filled-basic" className={classes.input} style={{backgroundColor:"white"}} InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}label="FIRST NAME" variant="filled"  InputProps={{disableUnderline: true}}/>      
 
       <div className={classes.button}>
-         {/* <Link to="/profile" className={classes.button}>
-            <h2 className={classes.buttonText}>LOG IN</h2>
-  </Link> */}
+         <Link to="/profile" className={classes.button}>
+            <h2 className={classes.buttonText}>SIGN UP</h2>
+      </Link> 
         </div>
         </div>
     );
