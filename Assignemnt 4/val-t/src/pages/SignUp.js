@@ -2,6 +2,7 @@ import bg from "../assets/bg_home.svg";
 import { makeStyles, Button } from "@material-ui/core";
 import whiteRect from "../assets/signup-rect.svg"
 import logo from "../assets/val-t-text.svg";
+import { TextField } from "@mui/material";
 import { color } from "@mui/system";
 import { white } from "material-ui/styles/colors";
 import { Link } from "react-router-dom";
@@ -94,5 +95,18 @@ inputText: {
 
 
 export default function SignUp() {
-  return <div>Sign up</div>;
+  const classes = useStyles();
+  return (
+    
+     <div className={classes.container}> 
+        <div className={classes.loginRectangle}/> 
+        <TextField id="filled-basic" className={classes.input} style={{backgroundColor:"white"}} InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}label="USERNAME" variant="filled"  InputProps={{disableUnderline: true}}/>      
+
+      <div className={classes.button}>
+         {/* <Link to="/profile" className={classes.button}>
+            <h2 className={classes.buttonText}>LOG IN</h2>
+  </Link> */}
+        </div>
+        </div>
+    );
 }
