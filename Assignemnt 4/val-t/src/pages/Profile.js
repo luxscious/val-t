@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
   settingsContent: {
     marginLeft: 32,
-    height: 537,
+    height: 456,
     paddingBottom: 50,
     display: "flex",
     flexDirection: "column",
