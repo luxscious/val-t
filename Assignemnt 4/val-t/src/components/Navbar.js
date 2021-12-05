@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
   const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.bar}>
+    <AppBar position="fixed" className={classes.bar}>
       <Toolbar className={classes.toolBar}>
         <Link to="/">
           <img src={logo} alt="Logo" />
