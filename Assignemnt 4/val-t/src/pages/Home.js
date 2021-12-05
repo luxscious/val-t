@@ -1,6 +1,6 @@
 import "../styles/Home.css";
 
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import bg from "../assets/bg_home.svg";
 import logo from "../assets/val-t-text.svg";
 import { Link } from "react-router-dom";
