@@ -1,6 +1,6 @@
 import bg from "../assets/bg_home.svg";
 import { makeStyles, Button } from "@material-ui/core";
-import whiteRect from "../assets/signup-rect.svg"
+import whiteRect from "../assets/signup-rect.svg";
 import logo from "../assets/val-t-text.svg";
 import { TextField } from "@mui/material";
 import { color, flexbox } from "@mui/system";
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     padding: 0,
     margin: 0,
-
     width: "100%",
     height: "100%",
     backgroundImage: `url(${bg})`,
@@ -25,23 +24,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  /*content: {
-    display: "flex",
-    flexDirection: "column",
-    marginBottom: 65, //Toolbar takes up 65px
-  },*/
 
   container: {
     position: "fixed",
     borderRadius: 30,
     width: 718,
     height: 540,
-    opacity: "50%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "rgba(255,255,255,.5)",
     margin: "auto",
-    zIndex: "-1",
-    //display: "flex"
-    //justifyContent: "center",
   },
 
   nameContainer: {
@@ -66,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
     width: 171,
     height: 51,
     paddingTop: 28,
-    
   },
 
   buttonText: {
@@ -84,19 +73,18 @@ const useStyles = makeStyles((theme) => ({
       border: 1,
       borderColor: "#FF4655",
     },
-  }, 
+  },
 
-inputFirstName: {
-  display: "flex",
-  flexDirection: "column",
-  flex: 1,
-  order: 1,
-  color: "white",
-  borderRadius: 6,
-  fontFamily: "Mark Pro",
+  inputFirstName: {
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+    order: 1,
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+  },
 
-},
- 
   inputLastName: {
     display: "flex",
     flexDirection: "column",
@@ -105,102 +93,112 @@ inputFirstName: {
     color: "white",
     borderRadius: 6,
     fontFamily: "Mark Pro",
+  },
 
-},
+  inputEmail: {
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+    width: "100%",
+  },
 
-inputEmail: {
-  color: "white",
-  borderRadius: 6,
-  fontFamily: "Mark Pro",
-  width: "100%"
+  inputPassword: {
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+    width: "100%",
+  },
 
-},
+  inputText: {
+    backgroundColor: "#FFFFFF",
+    textAlign: "center",
+    fontSize: "16px",
+    fontFamily: "Mark Pro",
+  },
 
-inputPassword: {  
-  color: "white",
-  borderRadius: 6,
-  fontFamily: "Mark Pro",
-  width: "100%"
-
-},
-
-inputText: {
-  backgroundColor: '#FFFFFF',
-  textAlign: 'center',
-  fontSize: '16px',
-  fontFamily: "Mark Pro",
-}, 
-
-userDropdown: {
-  color: "white",
-  borderRadius: 6,
-  fontFamily: "Mark Pro",
-  width: "100%"
-}
-
+  userDropdown: {
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+    width: "100%",
+  },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
   return (
-    
-     <div className={classes.page}> 
-        <div className={classes.container}> 
+    <div className={classes.page}>
+      <div className={classes.container}>
         <div className={classes.nameContainer}>
-        <TextField id="first-name" 
-          className={classes.inputFirstName} 
-          style={{backgroundColor:"white", marginRight:10}} 
-          InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}
-          label="FIRST NAME" 
-          variant="filled"  
-          InputProps={{disableUnderline: true}}
-        /> 
-       
-        <TextField id="last-name" 
-          className={classes.inputLastName} 
-          style={{backgroundColor:"white", marginLeft:10}} 
-          InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}
-          label="LAST NAME" 
-          variant="filled"  
-          InputProps={{disableUnderline: true}}
-        /> 
+          <TextField
+            id="first-name"
+            className={classes.inputFirstName}
+            style={{ backgroundColor: "white", marginRight: 10 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="FIRST NAME"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
+
+          <TextField
+            id="last-name"
+            className={classes.inputLastName}
+            style={{ backgroundColor: "white", marginLeft: 10 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="LAST NAME"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
         </div>
 
         <div className={classes.detailsContainer}>
-        <TextField id="email" 
-          className={classes.inputEmail} 
-          style={{backgroundColor:"white", marginBottom:20}} 
-          InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}
-          label="EMAIL" 
-          variant="filled"  
-          InputProps={{disableUnderline: true}}
-        />  
+          <TextField
+            id="email"
+            className={classes.inputEmail}
+            style={{ backgroundColor: "white", marginBottom: 20 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="EMAIL"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
 
-        <TextField id="password" 
-          className={classes.inputPassword} 
-          style={{backgroundColor:"white", marginBottom:20}} 
-          InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}
-          label="PASSWORD" 
-          variant="filled"  
-          InputProps={{disableUnderline: true}}
-        />  
+          <TextField
+            id="password"
+            className={classes.inputPassword}
+            style={{ backgroundColor: "white", marginBottom: 20 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="PASSWORD"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
 
-        <TextField id="userType" 
-          className={classes.userDropdown} 
-          style={{backgroundColor:"white"}} 
-          InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}
-          label="SELECT USER TYPE" 
-          variant="filled"  
-          InputProps={{disableUnderline: true}}
-        />  
+          <TextField
+            id="userType"
+            className={classes.userDropdown}
+            style={{ backgroundColor: "white" }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="SELECT USER TYPE"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
 
-        <div className={classes.button}>
-          <Link to="/profile" className={classes.button}>
+          <div className={classes.button}>
+            <Link to="/profile" className={classes.button}>
               <h2 className={classes.buttonText}>SIGN UP</h2>
-          </Link> 
-        </div>
-        </div> 
+            </Link>
+          </div>
         </div>
       </div>
-    );
+    </div>
+  );
 }
