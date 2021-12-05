@@ -58,7 +58,7 @@ export default function Home() {
       <div className={classes.content}>
         <img src={logo} alt="logo" />
         <div className={classes.button}>
-          <Link to="/login" className={classes.button}>
+          <Link to="/SignUp" className={classes.button}>
             <h2 className={classes.buttonText}>GET STARTED</h2>
           </Link>
         </div>
