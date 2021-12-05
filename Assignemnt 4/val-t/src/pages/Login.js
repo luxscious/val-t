@@ -73,41 +73,39 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#FF4655",
     },
   }, 
-username: {
+input: {
 
   color: "white",
-  width: "35%", 
+  width: "30%", 
   height: "5.5%",
   borderRadius: 6,
+  fontFamily: "Mark Pro",
+  backgroundPosition: "center",
+  display: "flex",
+  flexDirection: "column",
 
 },
 inputText: {
   backgroundColor: '#FFFFFF',
   textAlign: 'center',
   fontSize: '16px',
+  fontFamily: "Mark Pro",
 }, 
-password: {
-
-  color: "white",
-  width: "35%", 
-  height: "5.5%",
-  borderRadius: 6,
-}
 }));
 
 export default function Login() {
   const classes = useStyles();
   return (
-   
+    
      <div className={classes.container}> 
-      <div className={classes.loginRectangle}> </div>
-      <TextField style={{backgroundColor:white, height:"5.5%"}} className={classes.username} label="Username" InputProps={classes.inputText}/>
-      <TextField style={{backgroundColor:white, height:"5.5%"}} className={classes.password} label="Password" InputProps={classes.inputText}/> 
+        <div className={classes.loginRectangle}/> 
+        <TextField id="filled-basic" className={classes.input} style={{backgroundColor:"white"}} InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}label="USERNAME" variant="filled"  InputProps={{disableUnderline: true}}/>      
+
       <div className={classes.button}>
-          <Link to="/login" className={classes.button}>
+         {/* <Link to="/profile" className={classes.button}>
             <h2 className={classes.buttonText}>LOG IN</h2>
-          </Link>
+  </Link> */}
         </div>
-      </div>
+        </div>
     );
 }
