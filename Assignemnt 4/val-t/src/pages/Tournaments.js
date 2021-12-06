@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Tungsten Bold", 
     fontSize: 180, 
     color: "white", 
-    marginLeft: 1150,
-    marginTop: 350
+    marginLeft: 750,
+    marginTop: 250
   }, 
   h2: 
   {
