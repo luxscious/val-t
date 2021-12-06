@@ -5,11 +5,13 @@ const express = require("express");
 const cors = require("cors");
 
 // Required file dependencies
-const User = require("./dbFiles/config/user");
-const userOps = require("./dbFiles/tables/userOperations");
 const login = require("./dbFiles/queries/login");
+const changePassword = require("./dbFiles/queries/changePassword");
+const leaderboard = require("./dbFiles/queries/leaderboard");
+const profile = require("./dbFiles/queries/profile");
+const tournament = require("./dbFiles/queries/tournament");
 
-// Setting up the port 3001 and creating the app
+// Setting up the port 3001 and creating the app (should it be 3000?))
 const API_PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -28,16 +30,12 @@ app.post("/login", (req, res) => {
     res.json({message: "Hello API"});
 });
 
-// Creates a test user and adds it to the database
-// Will probably just be a for loop for adding all users
-//let testUser = new User('Joe', 'joe@gmail.com', 'abcd');
-//userOps.CreateUser(testUser);
-
+// testing the login
 login.PlayerLogin("Joe", "abcd").then(res => {
     console.log(res);
 });
 
-// Listens on port 3001
+// Listens on port 3001 (should it be 3000?)
 app.listen(API_PORT, () => {
     console.log(`listening on port ${API_PORT}`);
 })
