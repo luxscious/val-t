@@ -1,5 +1,5 @@
 import bg from "../assets/bg_home.svg";
-import whiteRect from "../assets/login-rect.svg"
+import whiteRect from "../assets/login-rect.svg";
 import logo from "../assets/val-t-text.svg";
 import { makeStyles, Button } from "@material-ui/core";
 import { TextField } from "@mui/material";
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import NotificationNetworkCheck from "material-ui/svg-icons/notification/network-check";
 
 const useStyles = makeStyles((theme) => ({
-  //put css here
   page: {
     position: "fixed",
     padding: 0,
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     width: 196,
     height: 35,
     paddingTop: 0,
-    paddingBottom: 40, 
+    paddingBottom: 40,
   },
 
   buttonText: {
@@ -111,7 +110,6 @@ const useStyles = makeStyles((theme) => ({
       border: 0,
     },
   },
-
 }));
 
 export default function SignUp() {
@@ -119,13 +117,17 @@ export default function SignUp() {
   return (
     <div className={classes.page}>
       <div className={classes.container}>
-       <div className={classes.detailsContainer}>
+        <div className={classes.detailsContainer}>
           <TextField
             id="username"
             className={classes.inputUsername}
             style={{ backgroundColor: "white", marginBottom: 31 }}
             InputLabelProps={{
-              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+              style: {
+                fontFamily: "Mark Pro",
+                fontSize: "18px",
+                color: "#ACACAC",
+              },
             }}
             label="USERNAME"
             variant="filled"
@@ -137,21 +139,37 @@ export default function SignUp() {
             className={classes.inputPassword}
             style={{ backgroundColor: "white", marginBottom: 42 }}
             InputLabelProps={{
-              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+              style: {
+                fontFamily: "Mark Pro",
+                fontSize: "18px",
+                color: "#ACACAC",
+              },
             }}
             label="PASSWORD"
             variant="filled"
+            type="password"
             InputProps={{ disableUnderline: true }}
           />
 
           <div className={classes.button}>
-            <Link style={{ textDecoration: 'none' }} to="/profile" className={classes.button}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/profile"
+              className={classes.button}
+            >
               <h2 className={classes.buttonText}>LOG IN</h2>
             </Link>
           </div>
 
-          <div className={classes.createAccButton} style={{paddingBottom:30}}>
-            <Link style={{ textDecoration: 'none' }} to="/signup" className={classes.createAccButton}>
+          <div
+            className={classes.createAccButton}
+            style={{ paddingBottom: 30 }}
+          >
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/signup"
+              className={classes.createAccButton}
+            >
               <h2 className={classes.createAccButtonText}>CREATE ACCOUNT</h2>
             </Link>
           </div>
