@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   nameContainer: {
-    paddingTop: 0,
     paddingLeft: 150,
     paddingRight: 150,
     paddingBottom: 18,
@@ -73,11 +72,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: 171,
     height: 51,
-    paddingTop: 28,
+    paddingTop: 5,
   },
 
   buttonText: {
-    marginBottom: 0,
+    marginBottom: -5,
     padding: 8,
     textAlign: "center",
     backgroundColor: "#FF4655",
@@ -144,14 +143,21 @@ const useStyles = makeStyles((theme) => ({
 
   h1:{
     alignItems: "center",
-    borderRadius: 6,
     justifyContent: "space-between",
     fontFamily: "Mark Pro",
     fontSize:40,
     color:"#FF4655",
+    paddingTop:10,
     textAlign:'center'
+  },
+  loginButtonText: {
+    padding: 10,
+    textAlign: "center",
+    backgroundColor: "transparent",
+    fontFamily: "Mark Pro",
+    fontSize: "18px",
+    color: "white",
   }
-
 }));
 
 export default function SignUp() {
@@ -239,9 +245,15 @@ export default function SignUp() {
           
 
           <div className={classes.button}>
-            <Link to="/profile" className={classes.button}>
+            <Link style={{ textDecoration: 'none' }} to="/profile" className={classes.button}>
               <h2 className={classes.buttonText}>SIGN UP</h2>
             </Link>
+            
+            <div className={classes.loginButton}>
+            <Link style={{ textDecoration: 'none' }} to="/login" className={classes.loginButton}>
+              <h2 className={classes.loginButtonText}>LOG IN</h2>
+            </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   detailsContainer: {
-    paddingTop: 87,
+    paddingTop: 72,
     paddingLeft: 96,
     paddingRight: 96,
     display: "flex",
@@ -61,18 +61,19 @@ const useStyles = makeStyles((theme) => ({
   inputText: {
     backgroundColor: "#FFFFFF",
     textAlign: "center",
-    fontSize: "16px",
+    fontSize: "18px",
     fontFamily: "Mark Pro",
   },
 
   button: {
     width: 196,
-    height: 51,
+    height: 35,
     paddingTop: 0,
-    paddingBottom: 43, 
+    paddingBottom: 40, 
   },
 
   buttonText: {
+    marginTop: 5,
     marginBottom: 0,
     padding: 8,
     textAlign: "center",
@@ -90,9 +91,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   createAccButton: {
-    width: 167,
+    width: 180,
     height: 22,
-    paddingTop: 0,
+    paddingTop: -20,
   },
 
   createAccButtonText: {
@@ -100,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     backgroundColor: "transparent",
     fontFamily: "Mark Pro",
-    fontSize: "16px",
+    fontSize: "18px",
     color: "white",
 
     border: 0,
@@ -144,13 +145,13 @@ export default function SignUp() {
           />
 
           <div className={classes.button}>
-            <Link to="/profile" className={classes.button}>
+            <Link style={{ textDecoration: 'none' }} to="/profile" className={classes.button}>
               <h2 className={classes.buttonText}>LOG IN</h2>
             </Link>
           </div>
 
-          <div className={classes.createAccButton}>
-            <Link to="/signup" className={classes.createAccButton}>
+          <div className={classes.createAccButton} style={{paddingBottom:30}}>
+            <Link style={{ textDecoration: 'none' }} to="/signup" className={classes.createAccButton}>
               <h2 className={classes.createAccButtonText}>CREATE ACCOUNT</h2>
             </Link>
           </div>
