@@ -29,12 +29,12 @@ const TopAgents = async() => {
     }
 }
 
-const TopRegionTeam = async() => {
+const TopRegionTeams = async(region) => {
     try {
         const topRegionTeam = await sql.promise().query(
         `CREATE VIEW tournamentsNA AS (SELECT tournamentId
             FROM Tournament
-            WHERE region ='North America')
+            WHERE region ='${region}')
         CREATE VIEW matchesInNA AS (SELECT matchId
             FROM VMatch
             RIGHT JOIN tournamentsNA
@@ -61,5 +61,5 @@ const TopRegionTeam = async() => {
 module.exports = {
     MostWins,
     TopAgents,
-    TopRegionTeam
+    TopRegionTeams
 }
