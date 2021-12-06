@@ -6,6 +6,7 @@ import logo from "../assets/Val-T Header Logo.svg";
 const useStyles = makeStyles((theme) => ({
   bar: {
     background: "#111111",
+    height: 70,
   },
   link: {
     textDecoration: "none",
