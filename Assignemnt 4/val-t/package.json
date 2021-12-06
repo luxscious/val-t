@@ -11,7 +11,10 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "material-ui": "^0.20.2",
+    "mysql2": "^2.3.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.2",
@@ -20,10 +23,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-server": "npm start & npm run server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "dev": "run-p server front"
   },
   "eslintConfig": {
