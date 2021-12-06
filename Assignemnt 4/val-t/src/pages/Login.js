@@ -6,14 +6,14 @@ import { TextField } from "@mui/material";
 import { color } from "@mui/system";
 import { white } from "material-ui/styles/colors";
 import { Link } from "react-router-dom";
+import NotificationNetworkCheck from "material-ui/svg-icons/notification/network-check";
 
 const useStyles = makeStyles((theme) => ({
   //put css here
-  container: {
+  page: {
     position: "fixed",
     padding: 0,
     margin: 0,
-
     width: "100%",
     height: "100%",
     backgroundImage: `url(${bg})`,
@@ -25,40 +25,55 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  content: {
+
+  container: {
+    position: "fixed",
+    borderRadius: 30,
+    width: 495,
+    height: 426,
+    backgroundColor: "rgba(255,255,255,.5)",
+    margin: "auto",
+  },
+
+  detailsContainer: {
+    paddingTop: 87,
+    paddingLeft: 96,
+    paddingRight: 96,
     display: "flex",
     flexDirection: "column",
-    marginBottom: 65, //Toolbar takes up 65px
-  },
-
-  loginRectangle: {
-    position: "fixed",
-    padding: 0,
-    margin: 0,
-
-    borderRadius: 30,
-
-    width: "60%",
-    height: "60%",
-    backgroundImage: `url(${whiteRect})`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover ",
-    zIndex: "-1",
-    display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-
   },
+
+  inputUsername: {
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+    width: "100%",
+  },
+
+  inputPassword: {
+    color: "white",
+    borderRadius: 6,
+    fontFamily: "Mark Pro",
+    width: "100%",
+  },
+
+  inputText: {
+    backgroundColor: "#FFFFFF",
+    textAlign: "center",
+    fontSize: "16px",
+    fontFamily: "Mark Pro",
+  },
+
   button: {
-    alignSelf: "center",
-    textDecoration: "none",
-    width: 209,
-    height: 45,
+    width: 196,
+    height: 51,
+    paddingTop: 0,
+    paddingBottom: 43, 
   },
 
   buttonText: {
-    marginTop: 40,
+    marginBottom: 0,
     padding: 8,
     textAlign: "center",
     backgroundColor: "#FF4655",
@@ -72,40 +87,75 @@ const useStyles = makeStyles((theme) => ({
       border: 1,
       borderColor: "#FF4655",
     },
-  }, 
-input: {
+  },
 
-  color: "white",
-  width: "30%", 
-  height: "5.5%",
-  borderRadius: 6,
-  fontFamily: "Mark Pro",
-  backgroundPosition: "center",
-  display: "flex",
-  flexDirection: "column",
+  createAccButton: {
+    width: 167,
+    height: 22,
+    paddingTop: 0,
+  },
 
-},
-inputText: {
-  backgroundColor: '#FFFFFF',
-  textAlign: 'center',
-  fontSize: '16px',
-  fontFamily: "Mark Pro",
-}, 
+  createAccButtonText: {
+    padding: 0,
+    textAlign: "center",
+    backgroundColor: "transparent",
+    fontFamily: "Mark Pro",
+    fontSize: "16px",
+    color: "white",
+
+    border: 0,
+    "&:hover": {
+      color: "black",
+      backgroundColor: "transparent",
+      border: 0,
+    },
+  },
+
 }));
 
-export default function Login() {
+export default function SignUp() {
   const classes = useStyles();
   return (
-    
-     <div className={classes.container}> 
-        <div className={classes.loginRectangle}/> 
-        <TextField id="filled-basic" className={classes.input} style={{backgroundColor:"white"}} InputLabelProps={{style: {fontFamily:"Mark Pro", fontSize:"18px"}}}label="USERNAME" variant="filled"  InputProps={{disableUnderline: true}}/>      
+    <div className={classes.page}>
+      <div className={classes.container}>
+       <div className={classes.detailsContainer}>
+          <TextField
+            id="username"
+            className={classes.inputUsername}
+            style={{ backgroundColor: "white", marginBottom: 31 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="USERNAME"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
 
-      <div className={classes.button}>
-         {/* <Link to="/profile" className={classes.button}>
-            <h2 className={classes.buttonText}>LOG IN</h2>
-  </Link> */}
+          <TextField
+            id="password"
+            className={classes.inputPassword}
+            style={{ backgroundColor: "white", marginBottom: 42 }}
+            InputLabelProps={{
+              style: { fontFamily: "Mark Pro", fontSize: "18px" },
+            }}
+            label="PASSWORD"
+            variant="filled"
+            InputProps={{ disableUnderline: true }}
+          />
+
+          <div className={classes.button}>
+            <Link to="/profile" className={classes.button}>
+              <h2 className={classes.buttonText}>LOG IN</h2>
+            </Link>
+          </div>
+
+          <div className={classes.createAccButton}>
+            <Link to="/signup" className={classes.createAccButton}>
+              <h2 className={classes.createAccButtonText}>CREATE ACCOUNT</h2>
+            </Link>
+          </div>
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
