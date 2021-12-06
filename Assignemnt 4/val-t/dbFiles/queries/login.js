@@ -2,12 +2,12 @@
 const sql = require("../config/dbConfig.js");
 mysql = require('mysql2');
 
-const PlayerLogin = async(username) => {
+const PlayerLogin = async(username, password) => {
     try {
         const playerLogin = await sql.promise().query(
-        `SELECT password
+        `SELECT userId, name
         FROM User
-        WHERE name = '${username}'`);
+        WHERE name = '${username}' AND password = '${password}'`);
 
         return playerLogin[0];
 
