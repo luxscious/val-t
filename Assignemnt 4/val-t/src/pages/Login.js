@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     height: 35,
     paddingTop: 0,
     paddingBottom: 40,
+    paddingLeft: 100
   },
 
   buttonText: {
@@ -199,13 +200,12 @@ export default function Login() {
                 type="password"
                 InputProps={{ disableUnderline: true }}
               />
-
               <div className={classes.button}>
                 <button type="submit">
                   <h2 className={classes.buttonText}>LOG IN</h2>
                 </button>
               </div>
-            </form>
+              </form>
             <div
               className={classes.createAccButton}
               style={{ paddingBottom: 30 }}
