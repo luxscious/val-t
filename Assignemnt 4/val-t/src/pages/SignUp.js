@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
+import Navbar from "../components/Navbar";
 
 const userType = [
   {
@@ -168,124 +169,127 @@ export default function SignUp() {
   };
   const classes = useStyles();
   return (
-    <div className={classes.page}>
-      <div className={classes.container}>
-        <h1 className={classes.h1}>CREATE ACCOUNT</h1>
-        <div className={classes.nameContainer}>
-          <TextField
-            id="first-name"
-            className={classes.inputFirstName}
-            style={{ backgroundColor: "white", marginRight: 10 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="FIRST NAME"
-            variant="filled"
-            InputProps={{ disableUnderline: true }}
-          />
-
-          <TextField
-            id="last-name"
-            className={classes.inputLastName}
-            style={{ backgroundColor: "white", marginLeft: 10 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="LAST NAME"
-            variant="filled"
-            InputProps={{ disableUnderline: true }}
-          />
-        </div>
-
-        <div className={classes.detailsContainer}>
-          <TextField
-            id="email"
-            className={classes.inputEmail}
-            style={{ backgroundColor: "white", marginBottom: 20 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="EMAIL"
-            variant="filled"
-            InputProps={{ disableUnderline: true }}
-          />
-
-          <TextField
-            id="password"
-            className={classes.inputPassword}
-            style={{ backgroundColor: "white", marginBottom: 20 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="PASSWORD"
-            variant="filled"
-            InputProps={{ disableUnderline: true }}
-          />
-
-          <div className={classes.userDropdown}>
+    <>
+      <Navbar />
+      <div className={classes.page}>
+        <div className={classes.container}>
+          <h1 className={classes.h1}>CREATE ACCOUNT</h1>
+          <div className={classes.nameContainer}>
             <TextField
-              className={classes.userDropdown}
+              id="first-name"
+              className={classes.inputFirstName}
+              style={{ backgroundColor: "white", marginRight: 10 }}
               InputLabelProps={{
                 style: {
                   fontFamily: "Mark Pro",
                   fontSize: "18px",
-                  width: "100%",
                   color: "#ACACAC",
                 },
               }}
-              select
-              label=""
-              label="SELECT USER TYPE"
+              label="FIRST NAME"
               variant="filled"
-              root=""
-              value={userTypes}
-              onChange={handleChange}
-            >
-              {userType.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              InputProps={{ disableUnderline: true }}
+            />
+
+            <TextField
+              id="last-name"
+              className={classes.inputLastName}
+              style={{ backgroundColor: "white", marginLeft: 10 }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Mark Pro",
+                  fontSize: "18px",
+                  color: "#ACACAC",
+                },
+              }}
+              label="LAST NAME"
+              variant="filled"
+              InputProps={{ disableUnderline: true }}
+            />
           </div>
 
-          <div className={classes.button}>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/profile"
-              className={classes.button}
-            >
-              <h2 className={classes.buttonText}>SIGN UP</h2>
-            </Link>
+          <div className={classes.detailsContainer}>
+            <TextField
+              id="email"
+              className={classes.inputEmail}
+              style={{ backgroundColor: "white", marginBottom: 20 }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Mark Pro",
+                  fontSize: "18px",
+                  color: "#ACACAC",
+                },
+              }}
+              label="EMAIL"
+              variant="filled"
+              InputProps={{ disableUnderline: true }}
+            />
 
-            <div className={classes.loginButton}>
+            <TextField
+              id="password"
+              className={classes.inputPassword}
+              style={{ backgroundColor: "white", marginBottom: 20 }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Mark Pro",
+                  fontSize: "18px",
+                  color: "#ACACAC",
+                },
+              }}
+              label="PASSWORD"
+              variant="filled"
+              InputProps={{ disableUnderline: true }}
+            />
+
+            <div className={classes.userDropdown}>
+              <TextField
+                className={classes.userDropdown}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Mark Pro",
+                    fontSize: "18px",
+                    width: "100%",
+                    color: "#ACACAC",
+                  },
+                }}
+                select
+                label=""
+                label="SELECT USER TYPE"
+                variant="filled"
+                root=""
+                value={userTypes}
+                onChange={handleChange}
+              >
+                {userType.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+
+            <div className={classes.button}>
               <Link
                 style={{ textDecoration: "none" }}
-                to="/login"
-                className={classes.loginButton}
+                to="/profile"
+                className={classes.button}
               >
-                <h2 className={classes.loginButtonText}>LOG IN</h2>
+                <h2 className={classes.buttonText}>SIGN UP</h2>
               </Link>
+
+              <div className={classes.loginButton}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/login"
+                  className={classes.loginButton}
+                >
+                  <h2 className={classes.loginButtonText}>LOG IN</h2>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

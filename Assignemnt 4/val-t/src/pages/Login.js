@@ -1,12 +1,20 @@
 import bg from "../assets/bg_home.svg";
 import whiteRect from "../assets/login-rect.svg";
 import logo from "../assets/val-t-text.svg";
-import { makeStyles, Button } from "@material-ui/core";
+import {
+  makeStyles,
+  Button,
+  Box,
+  responsiveFontSizes,
+} from "@material-ui/core";
 import { TextField } from "@mui/material";
 import { color } from "@mui/system";
 import { white } from "material-ui/styles/colors";
 import { Link } from "react-router-dom";
-import NotificationNetworkCheck from "material-ui/svg-icons/notification/network-check";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -111,56 +119,91 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+async function loginUser(credentials) {
+  console.log(credentials);
+  return fetch("http://localhost:5000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => {
+    console.log(data.status);
+    if (data.status === 200) {
+      return data.json();
+    } else {
+      return "incorrect";
+    }
+  });
+}
 
-export default function SignUp() {
+export default function Login() {
+  const [errorState, setErrorState] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const username = event.currentTarget.username.value;
+    const password = event.currentTarget.password.value;
+    const token = await loginUser({
+      username,
+      password,
+    });
+    if (token === "incorrect") {
+      setErrorState(true);
+    } else {
+      const cookies = new Cookies();
+      cookies.set("User", token, { path: "/" });
+      navigate("/");
+    }
+
+    console.log(token);
+  };
   const classes = useStyles();
   return (
     <div className={classes.page}>
       <div className={classes.container}>
         <div className={classes.detailsContainer}>
-          <TextField
-            id="username"
-            className={classes.inputUsername}
-            style={{ backgroundColor: "white", marginBottom: 31 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="USERNAME"
-            variant="filled"
-            InputProps={{ disableUnderline: true }}
-          />
+          <form onSubmit={handleSubmit}>
+            <TextField
+              id="username"
+              className={classes.inputUsername}
+              style={{ backgroundColor: "white", marginBottom: 31 }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Mark Pro",
+                  fontSize: "18px",
+                  color: "#ACACAC",
+                },
+              }}
+              label="USERNAME"
+              variant="filled"
+              InputProps={{ disableUnderline: true }}
+            />
 
-          <TextField
-            id="password"
-            className={classes.inputPassword}
-            style={{ backgroundColor: "white", marginBottom: 42 }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Mark Pro",
-                fontSize: "18px",
-                color: "#ACACAC",
-              },
-            }}
-            label="PASSWORD"
-            variant="filled"
-            type="password"
-            InputProps={{ disableUnderline: true }}
-          />
+            <TextField
+              id="password"
+              className={classes.inputPassword}
+              style={{ backgroundColor: "white", marginBottom: 42 }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Mark Pro",
+                  fontSize: "18px",
+                  color: "#ACACAC",
+                },
+              }}
+              label="PASSWORD"
+              variant="filled"
+              type="password"
+              InputProps={{ disableUnderline: true }}
+            />
 
-          <div className={classes.button}>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/profile"
-              className={classes.button}
-            >
-              <h2 className={classes.buttonText}>LOG IN</h2>
-            </Link>
-          </div>
-
+            <div className={classes.button}>
+              <button type="submit">
+                <h2 className={classes.buttonText}>LOG IN</h2>
+              </button>
+            </div>
+          </form>
           <div
             className={classes.createAccButton}
             style={{ paddingBottom: 30 }}
@@ -178,3 +221,6 @@ export default function SignUp() {
     </div>
   );
 }
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired,
+};

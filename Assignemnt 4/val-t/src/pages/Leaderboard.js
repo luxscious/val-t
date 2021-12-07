@@ -9,6 +9,7 @@ import leftBig from "../assets/leaderboard/left1.svg";
 import leftSmall from "../assets/leaderboard/left2.svg";
 import rightBig from "../assets/leaderboard/right1.svg";
 import rightSmall from "../assets/leaderboard/right2.svg";
+import Navbar from "../components/Navbar";
 const useStyles = makeStyles((theme) => ({
   bg: {
     backgroundImage: `url(${omenBg})`,
@@ -260,6 +261,7 @@ export default function Leaderboard() {
   }, [indexRef, currentList]);
   return (
     <>
+      <Navbar />
       <div className={classes.bg}>
         <img src={txt} alt="leaderboard" className={classes.text} />
       </div>

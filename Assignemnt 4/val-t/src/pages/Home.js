@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core";
 import bg from "../assets/bg_home.svg";
 import logo from "../assets/val-t-text.svg";
 import { Link } from "react-router-dom";
-
+import Cookies from "js-cookie";
+import Navbar from "../components/Navbar";
 const useStyles = makeStyles((theme) => ({
   //put css here
   container: {
@@ -53,16 +54,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Home() {
   const classes = useStyles();
+  const user = Cookies.get("User");
+  console.log(user);
   return (
-    <div className={classes.container}>
-      <div className={classes.content}>
-        <img src={logo} alt="logo" />
-        <div className={classes.button}>
-          <Link to="/SignUp" className={classes.button}>
-            <h2 className={classes.buttonText}>GET STARTED</h2>
-          </Link>
+    <>
+      <Navbar />
+      <div className={classes.container}>
+        <div className={classes.content}>
+          <img src={logo} alt="logo" />
+          {!user ? (
+            <div className={classes.button}>
+              <Link to="/SignUp" className={classes.button}>
+                <h2 className={classes.buttonText}>GET STARTED</h2>
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
-    </div>
+    </>
   );
 }

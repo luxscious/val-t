@@ -9,17 +9,18 @@ import Leaderboard from "./pages/Leaderboard.js";
 import Tournaments from "./pages/Tournaments.js";
 import Profile from "./pages/Profile.js";
 import Navbar from "./components/Navbar";
+import App from "./App.js";
 
 ReactDOM.render(
   <BrowserRouter>
-    <Navbar />
+    <App />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/tournaments" element={<Tournaments />} />
-      <Route path="/profile/:username" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
