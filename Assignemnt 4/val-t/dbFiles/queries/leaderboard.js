@@ -45,7 +45,6 @@ const agentsList = async () => {
 
 const TopRegionTeams = async (region) => {
   try {
-    console.log(region);
     const topRegionTeam = await sql.promise().query(
       `
       DROP VIEW IF EXISTS tournamentsNA;

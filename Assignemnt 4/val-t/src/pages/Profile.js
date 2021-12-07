@@ -289,6 +289,17 @@ export default function Profile() {
     }
   };
 
+  const getTeamStats = () => {
+    let wins = 0;
+    let loss = 0;
+    for (let i = 0; i < teams.length; i++) {
+      console.log(teams[i]);
+      wins += teams[i].wins;
+      loss += teams[i].losses;
+    }
+    setTeamLosses(loss);
+    setTeamWins(wins);
+  };
   const getTeamsStats = async () => {
     try {
       return fetch("http://localhost:5000/getTeamPlayerStats", {
@@ -311,16 +322,8 @@ export default function Profile() {
   useEffect(() => {
     getPlayerWins();
     getTeamsStats();
-    let wins = 0;
-    let loss = 0;
-    for (let i = 0; i < teams.length; i++) {
-      wins += teams[i].wins;
-      loss += teams[i].losses;
-    }
-    setTeamWins(wins);
-    setTeamLosses(loss);
+    getTeamStats();
   }, []);
-
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     let user = JSON.parse(Cookies.get("User"));
