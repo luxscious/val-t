@@ -128,7 +128,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#FF4655",
     paddingTop: 10,
     textAlign: "center",
+    opacity: 0,
   }
+  
 }));
 async function loginUser(credentials) {
   console.log(credentials);
@@ -164,7 +166,7 @@ export default function Login() {
     });
     if (token === "incorrect") {
       loginErrorMsg.style.opacity = 1;
-      
+
     } else {
       const cookies = new Cookies();
       cookies.set("User", token, { path: "/" });
