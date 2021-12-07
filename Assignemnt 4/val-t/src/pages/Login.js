@@ -15,6 +15,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -161,64 +162,67 @@ export default function Login() {
   };
   const classes = useStyles();
   return (
-    <div className={classes.page}>
-      <div className={classes.container}>
-        <div className={classes.detailsContainer}>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              id="username"
-              className={classes.inputUsername}
-              style={{ backgroundColor: "white", marginBottom: 31 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="USERNAME"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-            />
+    <>
+      <Navbar />
+      <div className={classes.page}>
+        <div className={classes.container}>
+          <div className={classes.detailsContainer}>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                id="username"
+                className={classes.inputUsername}
+                style={{ backgroundColor: "white", marginBottom: 31 }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Mark Pro",
+                    fontSize: "18px",
+                    color: "#ACACAC",
+                  },
+                }}
+                label="USERNAME"
+                variant="filled"
+                InputProps={{ disableUnderline: true }}
+              />
 
-            <TextField
-              id="password"
-              className={classes.inputPassword}
-              style={{ backgroundColor: "white", marginBottom: 42 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="PASSWORD"
-              variant="filled"
-              type="password"
-              InputProps={{ disableUnderline: true }}
-            />
+              <TextField
+                id="password"
+                className={classes.inputPassword}
+                style={{ backgroundColor: "white", marginBottom: 42 }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Mark Pro",
+                    fontSize: "18px",
+                    color: "#ACACAC",
+                  },
+                }}
+                label="PASSWORD"
+                variant="filled"
+                type="password"
+                InputProps={{ disableUnderline: true }}
+              />
 
-            <div className={classes.button}>
-              <button type="submit">
-                <h2 className={classes.buttonText}>LOG IN</h2>
-              </button>
-            </div>
-          </form>
-          <div
-            className={classes.createAccButton}
-            style={{ paddingBottom: 30 }}
-          >
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/signup"
+              <div className={classes.button}>
+                <button type="submit">
+                  <h2 className={classes.buttonText}>LOG IN</h2>
+                </button>
+              </div>
+            </form>
+            <div
               className={classes.createAccButton}
+              style={{ paddingBottom: 30 }}
             >
-              <h2 className={classes.createAccButtonText}>CREATE ACCOUNT</h2>
-            </Link>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/signup"
+                className={classes.createAccButton}
+              >
+                <h2 className={classes.createAccButtonText}>CREATE ACCOUNT</h2>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 Login.propTypes = {
