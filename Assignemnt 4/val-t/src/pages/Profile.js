@@ -323,8 +323,8 @@ export default function Profile() {
     getPlayerWins();
     getTeamsStats();
     getTeamStats();
-  }, []);
-  console.log(teamLosses);
+  }, [teams]);
+
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     let user = JSON.parse(Cookies.get("User"));
