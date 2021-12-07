@@ -1,65 +1,80 @@
 // Gets the dbConfig and uses mysql2
 const sql = require("../config/dbConfig.js");
-mysql = require('mysql2');
+const mysql = require("mysql2");
 
-const MostWins = async() => {
-    try {
-        const mostWins = await sql.promise().query(
-        `SELECT username, pWin
+const playerList = async () => {
+  try {
+    const mostWins = await sql.promise().query(
+      `SELECT username as name, pWin as wins
         FROM Player
-        ORDER BY pWin DESC`);
+        ORDER BY pWin DESC`
+    );
 
-        return mostWins[0];
-    } catch {
-        console.log(error);
-    }
-}
+    return mostWins[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+const teamsList = async () => {
+  try {
+    const mostWins = await sql.promise().query(
+      `SELECT tName as name, tWins as wins
+          FROM Team
+          ORDER BY tWins DESC`
+    );
 
-const TopAgents = async() => {
-    try {
-        const topAgents = await sql.promise().query(
-        `SELECT aName,aType,aWins
+    return mostWins[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+const agentsList = async () => {
+  try {
+    const topAgents = await sql.promise().query(
+      `SELECT aName as name,aWins as wins
         FROM Agent
         WHERE aWins > (SELECT AVG(aWins) as avg
-        FROM Agent)`);
+        FROM Agent)`
+    );
 
-        return topAgents[0];
-    } catch {
-        console.log(error);
-    }
-}
+    return topAgents[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const TopRegionTeams = async(region) => {
-    try {
-        const topRegionTeam = await sql.promise().query(
-        `CREATE VIEW tournamentsNA AS (SELECT tournamentId
+const TopRegionTeams = async (region) => {
+  try {
+    const topRegionTeam = await sql.promise().query(
+      `CREATE VIEW tournamentsNA AS (SELECT tournamentId
             FROM Tournament
-            WHERE region ='${region}')
+            WHERE region ='${region}');
         CREATE VIEW matchesInNA AS (SELECT matchId
             FROM VMatch
             RIGHT JOIN tournamentsNA
-            ON VMatch.tournamentId = tournamentsNa.tournamentId)
+            ON VMatch.tournamentId = tournamentsNa.tournamentId);
         CREATE VIEW teamsInNA AS (SELECT DISTINCT(teamId)
             FROM Roster
             RIGHT JOIN matchesInNA
-            ON Roster.matchId = matchesInNA.matchId)
+            ON Roster.matchId = matchesInNA.matchId);
         CREATE VIEW teamInfo AS (SELECT Team.tName, Team.tWins
             FROM Team
             RIGHT JOIN teamsInNA
-            ON Team.teamId = teamsInNA.teamId)
+            ON Team.teamId = teamsInNA.teamId);
         SELECT tName, tWins
         FROM teamInfo
-        WHERE tWins = (SELECT Max(tWins) FROM teamInfo)`);
+        WHERE tWins = (SELECT Max(tWins) FROM teamInfo)`
+    );
 
-        return topRegionTeam[0];
-        
-    } catch {
-        console.log(error);
-    }
-}
+    return topRegionTeam[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
-    MostWins,
-    TopAgents,
-    TopRegionTeams
-}
+  agentsList,
+  playerList,
+  teamsList,
+  TopRegionTeams,
+};

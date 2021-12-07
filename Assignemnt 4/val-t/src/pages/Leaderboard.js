@@ -9,7 +9,6 @@ import leftSmall from "../assets/leaderboard/left2.svg";
 import rightBig from "../assets/leaderboard/right1.svg";
 import rightSmall from "../assets/leaderboard/right2.svg";
 import regionalTopTeamsText from "../assets/leaderboard/regionalTopTeamsText.svg";
-
 import Navbar from "../components/Navbar";
 const useStyles = makeStyles((theme) => ({
   bg: {
@@ -204,55 +203,12 @@ function RenderTable(list, givenIndex) {
     );
   });
 }
+
 export default function Leaderboard() {
-  const [agentsList, setAgentsList] = useState([
-    { name: "Sage", wins: 10 },
-    { name: "Brimstone", wins: 9 },
-    { name: "Reyna", wins: 8 },
-    { name: "Omen", wins: 7 },
-    { name: "Cypher", wins: 6 },
-    { name: "Chamber", wins: 5 },
-    { name: "Sova", wins: 4 },
-  ]);
-  const [playersList, setPlayersList] = useState([
-    { name: "Sager", wins: 10 },
-    { name: "Brimstoner", wins: 9 },
-    { name: "Reynar", wins: 8 },
-    { name: "Omenr", wins: 7 },
-    { name: "Cypherrr", wins: 6 },
-    { name: "Chamberrr", wins: 5 },
-    { name: "Sovar", wins: 4 },
-    { name: "teamAwesomeeee", wins: 3 },
-    { name: "teamAwesomer", wins: 3 },
-  ]);
-  const [teamsList, setTeamsList] = useState([
-    { name: "Sageee", wins: 10 },
-    { name: "Brimstoneee", wins: 9 },
-    { name: "Reynaee", wins: 8 },
-    { name: "Omenee", wins: 7 },
-    { name: "Cypheree", wins: 6 },
-    { name: "Chamberee", wins: 5 },
-    { name: "Sovaee", wins: 4 },
-    { name: "teamAwesome", wins: 3 },
-    { name: "Sageee", wins: 10 },
-    { name: "Brimstoneee", wins: 9 },
-    { name: "Reynaee", wins: 8 },
-    { name: "Omenee", wins: 7 },
-    { name: "Cypheree", wins: 6 },
-    { name: "Chamberee", wins: 5 },
-    { name: "Sovaee", wins: 4 },
-    { name: "teamAwesome", wins: 3 },
-    { name: "Sageee", wins: 10 },
-    { name: "Brimstoneee", wins: 9 },
-    { name: "Reynaee", wins: 8 },
-    { name: "Omenee", wins: 7 },
-  ]);
-  const [undefeatedTeams, setDefeatedTeams] = useState([
-    { name: "GrannySmithApples" },
-    { name: "GameOfCones" },
-    { name: "SingleBelles" },
-    { name: "BoysThatCriedWolf" },
-  ]);
+  const [agentsList, setAgentsList] = useState([]);
+  const [playersList, setPlayersList] = useState([]);
+  const [teamsList, setTeamsList] = useState([]);
+  const [undefeatedTeams, setDefeatedTeams] = useState([]);
 
   const [currentList, setCurrentList] = useState("Agents");
   const [indexRef, setIndexRef] = useState(0);
@@ -260,6 +216,71 @@ export default function Leaderboard() {
   const classes = useStyles();
   const [currentListItems, setCurrentListItems] = useState([]);
 
+  const [loadAgents, setLoadedAgents] = useState(false);
+  const [loadPlayers, setLoadedPlayers] = useState(false);
+  const [loadTeams, setLoadedTeams] = useState(false);
+  const getAgents = async () => {
+    try {
+      return fetch("http://localhost:5000/topAgents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          setLoadedAgents(true);
+          setAgentsList(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getPlayers = async () => {
+    try {
+      return fetch("http://localhost:5000/topPlayers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          setLoadedPlayers(true);
+          setPlayersList(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getTeams = async () => {
+    try {
+      return fetch("http://localhost:5000/topTeams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          setLoadedTeams(true);
+          setTeamsList(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getAgents();
+    getPlayers();
+    getTeams();
+  }, []);
   //calculate total pages everytime current list changes
   useEffect(() => {
     if (currentList === "Agents") {
@@ -274,10 +295,11 @@ export default function Leaderboard() {
 
   //update list every time page changes
   useEffect(() => {
+    console.log(currentList);
     let temp = [];
-
     if (currentList === "Agents") {
       for (let i = indexRef * 5; i < 5 * (indexRef + 1); i++) {
+        // console.log(agentsList[i]);
         if (agentsList[i]) {
           temp.push(agentsList[i]);
         } else {
@@ -286,6 +308,7 @@ export default function Leaderboard() {
       }
     } else if (currentList === "Teams") {
       for (let i = indexRef * 5; i < 5 * (indexRef + 1); i++) {
+        console.log(teamsList[i], teamsList);
         if (teamsList[i]) {
           temp.push(teamsList[i]);
         } else {
@@ -301,8 +324,9 @@ export default function Leaderboard() {
         }
       }
     }
+    console.log(temp);
     setCurrentListItems(temp);
-  }, [indexRef, currentList]);
+  }, [indexRef, currentList, agentsList, teamsList, playersList]);
   return (
     <>
       <Navbar />
@@ -377,7 +401,13 @@ export default function Leaderboard() {
             className={classes.button}
             disabled={indexRef === 0}
             onClick={() => {
-              setIndexRef(0);
+              let index;
+              if (indexRef < 10) {
+                index = 0;
+              } else {
+                index = indexRef - 10;
+              }
+              setIndexRef(index);
             }}
           >
             <img src={leftBig} alt="left" />
@@ -419,7 +449,13 @@ export default function Leaderboard() {
             className={classes.button}
             disabled={indexRef === totalPages.current - 1}
             onClick={() => {
-              setIndexRef(totalPages.current - 1);
+              let index;
+              if (indexRef > totalPages.current - 10) {
+                index = totalPages - 1;
+              } else {
+                index = indexRef + 10;
+              }
+              setIndexRef(index);
             }}
           >
             <img src={rightBig} alt="right" />

@@ -40,13 +40,32 @@ app.post("/login", (req, res) => {
   });
   //   res.json({ message: "Hello API" });
 });
+app.post("/topTeams", (req, res) => {
+  leaderboard.teamsList().then((data) => {
+    res.json(data);
+  });
+});
+app.post("/topPlayers", (req, res) => {
+  leaderboard.playerList().then((data) => {
+    res.json(data);
+  });
+});
 
-// // testing the login
-// login.PlayerLogin("Joe", "abcd").then(res => {
-//     console.log(res);
-// });
+app.post("/topAgents", (req, res) => {
+  leaderboard.agentsList().then((data) => {
+    console.log(data);
+    res.json(data);
+  });
+});
 
-// Listens on port 3001 (should it be 3000?)
+app.post("/topRegionTeams", (req, res) => {
+  const region = req.body.region;
+  leaderboard.TopRegionTeams(region).then((data) => {
+    res.json({ data });
+  });
+});
+
+// Listens on port 5000
 app.listen(API_PORT, () => {
   console.log(`listening on port ${API_PORT}`);
 });
