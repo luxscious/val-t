@@ -6,7 +6,7 @@ const cors = require("cors");
 
 // Required file dependencies
 const login = require("./dbFiles/queries/login");
-const changePassword = require("./dbFiles/queries/changePassword");
+const changeUser = require("./dbFiles/queries/changeUser");
 const leaderboard = require("./dbFiles/queries/leaderboard");
 const profile = require("./dbFiles/queries/profile");
 const tournament = require("./dbFiles/queries/tournament");
@@ -16,7 +16,7 @@ const { promise } = require("./dbFiles/config/dbConfig");
 const API_PORT = process.env.PORT || 5000;
 const app = express();
 
-// cors port at 5001
+// cors port at 3000
 var corsOptions = {
   origin: "http://localhost:3000",
 };
@@ -26,7 +26,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Shows hello api on 127.0.0.1:3001/api
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -53,7 +52,6 @@ app.post("/topPlayers", (req, res) => {
 
 app.post("/topAgents", (req, res) => {
   leaderboard.agentsList().then((data) => {
-    console.log(data);
     res.json(data);
   });
 });
@@ -62,6 +60,46 @@ app.post("/topRegionTeams", (req, res) => {
   const region = req.body.region;
   leaderboard.TopRegionTeams(region).then((data) => {
     res.json({ data });
+  });
+});
+
+app.post("/getPlayerStats", (req, res) => {
+  const userId = req.body;
+  profile.playerStats(userId).then((data) => {
+    res.json({ data });
+  });
+});
+app.post("/getTeamPlayerStats", (req, res) => {
+  const userId = req.body.userId;
+  profile.getTeamsPlayer(userId).then((data) => {
+    res.json({ data });
+  });
+});
+app.post("/getTeamSubsriberStats", (req, res) => {
+  const userId = req.body.userId;
+  profile.getTeamsSubscriber(userId).then((data) => {
+    res.json({ data });
+  });
+});
+app.post("/getTeamSponsorStats", (req, res) => {
+  const userId = req.body.userId;
+  profile.getTeamsSponsor(userId).then((data) => {
+    res.json({ data });
+  });
+});
+
+app.post("/changeUsername", (req, res) => {
+  const userId = req.body.userId;
+  const username = req.body.username;
+  changeUser.ChangeUsername(userId, username).then((data) => {
+    res.sendStatus(200);
+  });
+});
+app.post("/changePassword", (req, res) => {
+  const userId = req.body.userId;
+  const password = req.body.password;
+  changeUser.ChangePass(userId, password).then((data) => {
+    res.sendStatus(200);
   });
 });
 
