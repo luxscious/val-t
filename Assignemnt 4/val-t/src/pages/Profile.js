@@ -12,13 +12,14 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-
+import { useEffect } from "react";
+import cookie from "universal-cookie";
 const useStyles = makeStyles((theme) => ({
   page: {
     position: "fixed",
     padding: 0,
     margin: 0,
-    marginTop: 70,
+    marginTop: 48,
     width: "100%",
     height: "100%",
     backgroundImage: `url(${bg})`,
@@ -227,26 +228,125 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Mark Pro",
   },
 }));
+async function changeUsername(userId, username) {
+  return fetch("http://localhost:5000/changeUsername", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId: userId, username: "username" }),
+  }).then((data) => {
+    return data.status;
+  });
+}
+async function changePassword(userId, password) {
+  return fetch("http://localhost:5000/changePassword", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId: userId, password: password }),
+  }).then((data) => {
+    return data.status;
+  });
+}
 
 export default function Profile() {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const user = JSON.parse(Cookies.get("User"))[0];
-  console.log(user.name);
+
   const [playerWins, setPlayerWins] = useState(0);
   const [playerLosses, setPlayerLosses] = useState(0);
   const [teamWins, setTeamWins] = useState(0);
   const [teamLosses, setTeamLosses] = useState(0);
-  const [teams, setTeams] = useState([
-    { id: 1, name: "GoalDiggers" },
-    { id: 2, name: "BagOfChips" },
-    { id: 3, name: "MinimumWagers" },
-  ]);
+  const [teams, setTeams] = useState([]);
   const handleLogout = () => {
     Cookies.remove("User");
     navigate("/");
   };
+
+  const getPlayerWins = async () => {
+    try {
+      let userid = { userId: user.userId };
+      return fetch("http://localhost:5000/getPlayerStats", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userid),
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          setPlayerWins(data.data[0]?.wins);
+          setPlayerLosses(data.data[0]?.losses);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getTeamsStats = async () => {
+    try {
+      return fetch("http://localhost:5000/getTeamPlayerStats", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user.userId }),
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          setTeams(data.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getPlayerWins();
+    getTeamsStats();
+    let wins = 0;
+    let loss = 0;
+    for (let i = 0; i < teams.length; i++) {
+      wins += teams[i].wins;
+      loss += teams[i].losses;
+    }
+    setTeamWins(wins);
+    setTeamLosses(loss);
+  }, []);
+
+  // const handleUserSubmit = async (event) => {
+  //   event.preventDefault();
+  //   let user = JSON.parse(Cookies.get("User"));
+  //   let userId = user[0].userId;
+  //   const username = event.currentTarget.username.value;
+  //   console.log(username);
+  //   const response = await changeUsername(userId, username);
+  //   if (response === 200) {
+  //     // const cookies = new cookie();
+  //     // cookies.set("User", JSON.stringify({ userId: userId, name: username }));
+  //   }
+  //   console.log(response);
+  //   navigate("/profile");
+  // };
+  const handlePasswordSubmit = async (event) => {
+    event.preventDefault();
+    let user = JSON.parse(Cookies.get("User"));
+    let userId = user[0].userId;
+
+    const password = event.currentTarget.password.value;
+    const response = await changePassword(userId, password);
+
+    console.log(response);
+    navigate("/profile");
+  };
+
   return (
     <>
       <Navbar />
@@ -255,9 +355,10 @@ export default function Profile() {
           <img src={settings} alt="settings" className={classes.settingsImg} />
           <div className={classes.settingsbgDiv}> </div>
           <div className={classes.settingsContent}>
-            <form className={classes.form}>
+            {/* <form onSubmit={handleUserSubmit} className={classes.form}>
               <label>PLAYERNAME:</label>
               <input
+                id="username"
                 type="text"
                 placeholder="username"
                 className={classes.input}
@@ -265,10 +366,11 @@ export default function Profile() {
               <button type="submit" className={classes.button}>
                 CHANGE
               </button>
-            </form>
-            <form className={classes.form}>
+            </form> */}
+            <form onSubmit={handlePasswordSubmit} className={classes.form}>
               <label>PASSWORD:</label>
               <input
+                id="password"
                 type="text"
                 placeholder="password"
                 className={classes.input}
