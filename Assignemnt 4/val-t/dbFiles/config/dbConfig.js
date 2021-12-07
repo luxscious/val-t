@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "Shopping30!!",
   database: "valt",
+  multipleStatements: true,
 });
 
 // Shows error, otherwise state that the connection was successful

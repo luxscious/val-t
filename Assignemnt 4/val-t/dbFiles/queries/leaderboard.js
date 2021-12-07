@@ -46,28 +46,31 @@ const agentsList = async () => {
 const TopRegionTeams = async (region) => {
   try {
     const topRegionTeam = await sql.promise().query(
-      `CREATE VIEW tournamentsNA AS (SELECT tournamentId
+      `
+      DROP VIEW IF EXISTS tournamentsNA;
+      DROP VIEW IF EXISTS matchesInNA;
+      DROP VIEW IF EXISTS teamsInNA;
+      DROP VIEW IF EXISTS teamInfo;
+      CREATE VIEW tournamentsNA AS (SELECT tournamentId
         FROM Tournament
-        WHERE region ='North America')
-        GO
+        WHERE region ='${region}');
     CREATE VIEW matchesInNA AS (SELECT matchId
         FROM VMatch
         RIGHT JOIN tournamentsNA
-        ON VMatch.tournamentId = tournamentsNa.tournamentId)
-        GO
+        ON VMatch.tournamentId = tournamentsNa.tournamentId);
     CREATE VIEW teamsInNA AS (SELECT DISTINCT(teamId)
         FROM Roster
         RIGHT JOIN matchesInNA
-        ON Roster.matchId = matchesInNA.matchId)
-        GO
+        ON Roster.matchId = matchesInNA.matchId);
     CREATE VIEW teamInfo AS (SELECT Team.tName, Team.tWins
         FROM Team
         RIGHT JOIN teamsInNA
-        ON Team.teamId = teamsInNA.teamId)
-        GO
+        ON Team.teamId = teamsInNA.teamId);
+       
     SELECT tName, tWins
     FROM teamInfo
-    WHERE tWins = (SELECT Max(tWins) FROM teamInfo)`
+    WHERE tWins = (SELECT Max(tWins) FROM teamInfo);
+  `
     );
 
     return topRegionTeam[0];
