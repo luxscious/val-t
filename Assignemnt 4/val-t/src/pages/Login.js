@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     height: 35,
     paddingTop: 0,
     paddingBottom: 40,
-    paddingLeft: 150
+    paddingLeft: 105
   },
 
   buttonText: {
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     opacity: 0,
   }
-  
+
 }));
 async function loginUser(credentials) {
   console.log(credentials);
