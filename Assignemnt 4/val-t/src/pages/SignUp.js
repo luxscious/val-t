@@ -186,6 +186,18 @@ export default function SignUp() {
   const handleChange = (event) => {
     setUserType(event.target.value);
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const username = event.currentTarget.username.value;
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
+    const result = await signUpUser({
+      username,
+      email,
+      password,
+    });
+
   const classes = useStyles();
   return (
     <>
