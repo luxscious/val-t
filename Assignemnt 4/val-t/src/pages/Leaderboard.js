@@ -310,7 +310,6 @@ export default function Leaderboard() {
       setCurrentRegionList(chTeams);
     }
   }, [currentRegion]);
-  console.log(currentRegionList);
   const getAgents = async () => {
     try {
       return fetch("http://localhost:5000/topAgents", {

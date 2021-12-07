@@ -131,7 +131,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 async function loginUser(credentials) {
-  console.log(credentials);
   return fetch("http://localhost:5000/login", {
     method: "POST",
     headers: {
@@ -139,7 +138,6 @@ async function loginUser(credentials) {
     },
     body: JSON.stringify(credentials),
   }).then((data) => {
-    console.log(data.status);
     if (data.status === 200) {
       return data.json();
     } else {

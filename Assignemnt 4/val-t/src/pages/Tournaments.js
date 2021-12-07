@@ -166,11 +166,9 @@ export default function Tournaments() {
         return data.json();
       })
       .then((data) => {
-        console.log(currRegion);
         if (currRegion === "Europe") {
           setEuTournaments(data);
         } else if (currRegion === "North America") {
-          console.log("NA", data);
           setNaTournaments(data);
         } else if (currRegion === "South America") {
           setSaTournaments(data);

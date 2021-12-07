@@ -321,20 +321,6 @@ export default function Profile() {
     setTeamLosses(loss);
   }, []);
 
-  // const handleUserSubmit = async (event) => {
-  //   event.preventDefault();
-  //   let user = JSON.parse(Cookies.get("User"));
-  //   let userId = user[0].userId;
-  //   const username = event.currentTarget.username.value;
-  //   console.log(username);
-  //   const response = await changeUsername(userId, username);
-  //   if (response === 200) {
-  //     // const cookies = new cookie();
-  //     // cookies.set("User", JSON.stringify({ userId: userId, name: username }));
-  //   }
-  //   console.log(response);
-  //   navigate("/profile");
-  // };
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     let user = JSON.parse(Cookies.get("User"));
@@ -342,8 +328,7 @@ export default function Profile() {
 
     const password = event.currentTarget.password.value;
     const response = await changePassword(userId, password);
-
-    console.log(response);
+    alert(response);
     navigate("/profile");
   };
 
