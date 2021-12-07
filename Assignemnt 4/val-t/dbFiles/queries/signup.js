@@ -5,8 +5,8 @@ const mysql = require("mysql2");
 const PlayerSignup = async (username, password) => {
   try {
     const playerSignup = await sql.promise().query(
-        `INSERT INTO User (name, password)
-        VALUES ('${username}', '${password}')`
+        `INSERT INTO User (name, email, password)
+        VALUES ('${username}', '${email}', '${password}')`
     );
     console.log(playerSignup[0]);
     return playerSignup[0];
