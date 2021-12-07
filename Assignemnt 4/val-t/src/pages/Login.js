@@ -119,6 +119,18 @@ const useStyles = makeStyles((theme) => ({
       border: 0,
     },
   },
+
+  errorMsg: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    fontFamily: "Mark Pro",
+    fontSize: 18,
+    color: "#FF4655",
+    paddingTop: 10,
+    textAlign: "center",
+    opacity: 0,
+  }
+  
 }));
 async function loginUser(credentials) {
   console.log(credentials);
@@ -139,19 +151,23 @@ async function loginUser(credentials) {
 }
 
 export default function Login() {
-  const [errorState, setErrorState] = useState(false);
+  //const [errorState, setErrorState] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const username = event.currentTarget.username.value;
     const password = event.currentTarget.password.value;
+    const loginErrorMsg = document.getElementById("error");
+    
     const token = await loginUser({
       username,
       password,
     });
     if (token === "incorrect") {
-      setErrorState(true);
+      loginErrorMsg.style.opacity = 1;
+
     } else {
       const cookies = new Cookies();
       cookies.set("User", token, { path: "/" });
@@ -166,6 +182,7 @@ export default function Login() {
       <Navbar />
       <div className={classes.page}>
         <div className={classes.container}>
+        <h1 className={classes.errorMsg}>Your username or password is incorrect.</h1>
           <div className={classes.detailsContainer}>
             <form onSubmit={handleSubmit}>
               <TextField
@@ -203,7 +220,7 @@ export default function Login() {
 
               <div className={classes.button}>
                 <button type="submit">
-                  <h2 className={classes.buttonText}>LOG IN</h2>
+                  <h2 id="error" className={classes.buttonText}>LOG IN</h2>
                 </button>
               </div>
             </form>
