@@ -158,6 +158,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -590,
     backgroundColor: "rgba(196, 196, 196, 0.6)",
   },
+  td: {
+    fontFamily: "Mark Pro",
+    fontSize: 36,
+    color: "#FF4655",
+  },
 }));
 
 function RenderTable(list, givenIndex) {
@@ -203,6 +208,24 @@ function RenderTable(list, givenIndex) {
     );
   });
 }
+function RenderRegionTable(list) {
+  const classes = useStyles();
+  if (list.length === 0) {
+    return (
+      <tr className={classes.tableRow}>
+        <td className={classes.td}>No Teams</td>
+      </tr>
+    );
+  } else {
+    return list.map((x) => {
+      return (
+        <tr className={classes.tableRow}>
+          <td className={classes.td}>{x.tName}</td>
+        </tr>
+      );
+    });
+  }
+}
 
 export default function Leaderboard() {
   const [agentsList, setAgentsList] = useState([]);
@@ -216,9 +239,78 @@ export default function Leaderboard() {
   const classes = useStyles();
   const [currentListItems, setCurrentListItems] = useState([]);
 
+  const [currentRegion, setCurrentRegion] = useState("Asia");
+  const [currentRegionList, setCurrentRegionList] = useState([]);
+  const [seAsiaTeams, setSeAsiaTeams] = useState([]);
+  const [naTeams, setNaTeams] = useState([]);
+  const [saTeams, setSaTeams] = useState([]);
+  const [oceTeams, setOceTeams] = useState([]);
+  const [chTeams, setChTeams] = useState([]);
+  const [euTeams, setEuTeams] = useState([]);
+  const [korTeams, setKorTeams] = useState([]);
+
   const [loadAgents, setLoadedAgents] = useState(false);
   const [loadPlayers, setLoadedPlayers] = useState(false);
   const [loadTeams, setLoadedTeams] = useState(false);
+
+  async function getRegionTeams(region) {
+    const currRegion = region;
+    return fetch("http://localhost:5000/topRegionTeams", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ region: region }),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        if (currRegion === "Europe") {
+          setEuTeams(data);
+        } else if (currRegion === "North America") {
+          setNaTeams(data);
+        } else if (currRegion === "South America") {
+          setSaTeams(data);
+        } else if (currRegion === "Oceania") {
+          setOceTeams(data);
+        } else if (currRegion === "South East Asia") {
+          setSeAsiaTeams(data);
+        } else if (currRegion === "Korea") {
+          setKorTeams(data);
+        } else {
+          setChTeams(data);
+        }
+      });
+  }
+  useEffect(() => {
+    getRegionTeams("Europe");
+    getRegionTeams("North America");
+    getRegionTeams("South America");
+    getRegionTeams("South East Asia");
+    getRegionTeams("Oceania");
+    getRegionTeams("Korea");
+    getRegionTeams("China");
+  }, []);
+
+  useEffect(() => {
+    if (currentRegion === "Europe") {
+      setCurrentRegionList(euTeams);
+    } else if (currentRegion === "Na") {
+      setCurrentRegionList(naTeams);
+    } else if (currentRegion === "Sa") {
+      setCurrentRegionList(saTeams);
+    } else if (currentRegion === "Oceania") {
+      setCurrentRegionList(oceTeams);
+    } else if (currentRegion === "Se Asia") {
+      setCurrentRegionList(seAsiaTeams);
+    } else if (currentRegion === "Korea") {
+      setCurrentRegionList(korTeams);
+    } else {
+      setCurrentRegionList(chTeams);
+    }
+  }, [currentRegion]);
+  console.log(currentRegionList);
   const getAgents = async () => {
     try {
       return fetch("http://localhost:5000/topAgents", {
@@ -473,85 +565,101 @@ export default function Leaderboard() {
             <div className={classes.backgroundDiv}>
               <div className={classes.regionOptions}>
                 <button
-                  className={classes.regionButton}
                   style={{ marginRight: 70, marginLeft: 10 }}
-                  /*className={
+                  className={
                     currentRegion === "Korea"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  onClick={() => {
+                    setCurrentRegion("Korea");
+                  }}
                 >
                   KOREA
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 95 }}
-                  /*className={
+                  className={
                     currentRegion === "Na"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  style={{ marginRight: 95 }}
+                  onClick={() => {
+                    setCurrentRegion("Na");
+                  }}
                 >
                   NA
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 60 }}
-                  /*className={
+                  className={
                     currentRegion === "Sa"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  style={{ marginRight: 60 }}
+                  onClick={() => {
+                    setCurrentRegion("Sa");
+                  }}
                 >
                   SA
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 30 }}
-                  /*className={
+                  className={
                     currentRegion === "Oceania"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  onClick={() => {
+                    setCurrentRegion("Oceania");
+                  }}
+                  style={{ marginRight: 30 }}
                 >
                   OCEANIA
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 30 }}
-                  /*className={
+                  className={
                     currentRegion === "Se Asia"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  onClick={() => {
+                    setCurrentRegion("Se Asia");
+                  }}
+                  style={{ marginRight: 30 }}
                 >
                   SE ASIA
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 35 }}
-                  /*className={
+                  className={
                     currentRegion === "Europe"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  style={{ marginRight: 35 }}
+                  onClick={() => {
+                    setCurrentRegion("Europe");
+                  }}
                 >
                   EUROPE
                 </button>
                 <button
-                  className={classes.regionButton}
-                  style={{ marginRight: 10 }}
-                  /*className={
+                  className={
                     currentRegion === "China"
-                    ? classes.highlightedButton
-                    : classes.regionButton
-                  }*/
+                      ? classes.highlightedButton
+                      : classes.regionButton
+                  }
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    setCurrentRegion("China");
+                  }}
                 >
                   CHINA
                 </button>
               </div>
               <div>
-                <table className={classes.regionalTeamsTable}></table>
+                <table className={classes.regionalTeamsTable}>
+                  {RenderRegionTable(currentRegionList)}
+                </table>
               </div>
             </div>
           </div>

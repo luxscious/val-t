@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   tournamentTable: {
     width: 700,
     height: 560,
-    // backgroundColor: "black",
     marginLeft: 90,
     marginTop: 110,
     overflow: "auto",
@@ -155,7 +154,6 @@ export default function Tournaments() {
   const [chTournaments, setChTournaments] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   async function getTournaments(region) {
-    console.log("HEY", region);
     const currRegion = region;
     return fetch("http://localhost:5000/getTournaments", {
       method: "POST",
