@@ -10,7 +10,6 @@ const PlayerLogin = async (username, password) => {
 
         WHERE name = '${username}' AND password = '${password}'`
     );
-    console.log(playerLogin[0]);
     return playerLogin[0];
   } catch (error) {
     console.log(error);
