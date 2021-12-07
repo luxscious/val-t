@@ -65,14 +65,12 @@ const TopRegionTeams = async (region) => {
     CREATE VIEW teamInfo AS (SELECT Team.tName, Team.tWins
         FROM Team
         RIGHT JOIN teamsInNA
-        ON Team.teamId = teamsInNA.teamId);
-       
+        ON Team.teamId = teamsInNA.teamId);     
     SELECT tName, tWins
     FROM teamInfo
     WHERE tWins = (SELECT Max(tWins) FROM teamInfo);
   `
     );
-
     return topRegionTeam[0];
   } catch (error) {
     console.log(error);

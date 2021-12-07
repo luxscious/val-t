@@ -58,7 +58,7 @@ app.post("/topAgents", (req, res) => {
 app.post("/topRegionTeams", (req, res) => {
   const region = req.body.region;
   leaderboard.TopRegionTeams(region).then((data) => {
-    res.json({ data });
+    res.json(data[data.length - 1]);
   });
 });
 
