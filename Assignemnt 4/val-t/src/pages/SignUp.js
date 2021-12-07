@@ -161,6 +161,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+async function signUpUser(credentials) {
+  console.log(credentials);
+  return fetch("http://localhost:5000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => {
+    console.log(data.status);
+    if (data.status === 200) {
+      return data.json();
+    } else {
+      return "incorrect";
+    }
+  });
+}
+
+
 export default function SignUp() {
   const [userTypes, setUserType] = React.useState("");
 
