@@ -161,6 +161,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+async function signUpUser(credentials) {
+  console.log(credentials);
+  return fetch("http://localhost:5000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => {
+    console.log(data.status);
+    if (data.status === 200) {
+      return data.json();
+    } else {
+      return "incorrect";
+    }
+  });
+}
+
+
 export default function SignUp() {
   const [userTypes, setUserType] = React.useState("");
 
@@ -209,6 +228,7 @@ export default function SignUp() {
           </div>
 
           <div className={classes.detailsContainer}>
+            <form onSubmit={handleSubmit}> 
             <TextField
               id="email"
               className={classes.inputEmail}
@@ -269,14 +289,15 @@ export default function SignUp() {
             </div>
 
             <div className={classes.button}>
-              <Link
+              <button type="submit"
                 style={{ textDecoration: "none" }}
                 to="/profile"
                 className={classes.button}
               >
                 <h2 className={classes.buttonText}>SIGN UP</h2>
-              </Link>
-
+              </button>
+            </div>
+            </form>
               <div className={classes.loginButton}>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -289,7 +310,7 @@ export default function SignUp() {
             </div>
           </div>
         </div>
-      </div>
+      
     </>
   );
 }
