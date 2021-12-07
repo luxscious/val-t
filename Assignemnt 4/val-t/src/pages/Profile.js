@@ -324,6 +324,7 @@ export default function Profile() {
     getTeamsStats();
     getTeamStats();
   }, []);
+  console.log(teamLosses);
   const handlePasswordSubmit = async (event) => {
     event.preventDefault();
     let user = JSON.parse(Cookies.get("User"));
