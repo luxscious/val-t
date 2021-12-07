@@ -197,6 +197,7 @@ export default function SignUp() {
       email,
       password,
     });
+  }
 
   const classes = useStyles();
   return (
