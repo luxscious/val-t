@@ -49,18 +49,22 @@ const TopRegionTeams = async (region) => {
       `CREATE VIEW tournamentsNA AS (SELECT tournamentId
         FROM Tournament
         WHERE region ='North America')
+        GO
     CREATE VIEW matchesInNA AS (SELECT matchId
         FROM VMatch
         RIGHT JOIN tournamentsNA
         ON VMatch.tournamentId = tournamentsNa.tournamentId)
+        GO
     CREATE VIEW teamsInNA AS (SELECT DISTINCT(teamId)
         FROM Roster
         RIGHT JOIN matchesInNA
         ON Roster.matchId = matchesInNA.matchId)
+        GO
     CREATE VIEW teamInfo AS (SELECT Team.tName, Team.tWins
         FROM Team
         RIGHT JOIN teamsInNA
         ON Team.teamId = teamsInNA.teamId)
+        GO
     SELECT tName, tWins
     FROM teamInfo
     WHERE tWins = (SELECT Max(tWins) FROM teamInfo)`
