@@ -228,6 +228,7 @@ export default function SignUp() {
           </div>
 
           <div className={classes.detailsContainer}>
+            <form onSubmit={handleSubmit}> 
             <TextField
               id="email"
               className={classes.inputEmail}
@@ -288,14 +289,15 @@ export default function SignUp() {
             </div>
 
             <div className={classes.button}>
-              <Link
+              <button type="submit"
                 style={{ textDecoration: "none" }}
                 to="/profile"
                 className={classes.button}
               >
                 <h2 className={classes.buttonText}>SIGN UP</h2>
-              </Link>
-
+              </button>
+            </div>
+            </form>
               <div className={classes.loginButton}>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -308,7 +310,7 @@ export default function SignUp() {
             </div>
           </div>
         </div>
-      </div>
+      
     </>
   );
 }
