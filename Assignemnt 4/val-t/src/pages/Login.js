@@ -73,22 +73,20 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
-    width: 196,
-    height: 35,
-    paddingTop: 0,
-    paddingBottom: 40,
-    paddingLeft: 105
-  },
-
-  buttonText: {
-    marginTop: 5,
-    marginBottom: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 171,
+    height: 51,
+    paddingTop: 5,
+    margin: "auto",
+    marginTop: 10,
     padding: 8,
     textAlign: "center",
+    borderRadius: 10,
     backgroundColor: "#FF4655",
     fontFamily: "Mark Pro",
     color: "white",
-
     border: 0,
     "&:hover": {
       color: "white",
@@ -96,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
       border: 1,
       borderColor: "#FF4655",
     },
+    cursor: "pointer",
   },
 
   createAccButton: {
@@ -129,8 +128,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 10,
     textAlign: "center",
     opacity: 0,
-  }
-
+  },
 }));
 async function loginUser(credentials) {
   console.log(credentials);
@@ -159,21 +157,19 @@ export default function Login() {
     const username = event.currentTarget.username.value;
     const password = event.currentTarget.password.value;
     const loginErrorMsg = document.getElementById("error");
-    
+
     const token = await loginUser({
       username,
       password,
     });
     if (token === "incorrect") {
+      alert("Incorrect username or password");
       loginErrorMsg.style.opacity = 1;
-
     } else {
       const cookies = new Cookies();
       cookies.set("User", token, { path: "/" });
       navigate("/");
     }
-
-    console.log(token);
   };
   const classes = useStyles();
   return (
@@ -217,9 +213,9 @@ export default function Login() {
                 InputProps={{ disableUnderline: true }}
               />
 
-              <div className={classes.button}>
-                <button type="submit">
-                  <h2 className={classes.buttonText}>LOG IN</h2>
+              <div>
+                <button className={classes.button} type="submit">
+                  LOG IN
                 </button>
               </div>
             </form>

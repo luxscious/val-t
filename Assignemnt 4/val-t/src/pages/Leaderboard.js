@@ -295,11 +295,9 @@ export default function Leaderboard() {
 
   //update list every time page changes
   useEffect(() => {
-    console.log(currentList);
     let temp = [];
     if (currentList === "Agents") {
       for (let i = indexRef * 5; i < 5 * (indexRef + 1); i++) {
-        // console.log(agentsList[i]);
         if (agentsList[i]) {
           temp.push(agentsList[i]);
         } else {
@@ -308,7 +306,6 @@ export default function Leaderboard() {
       }
     } else if (currentList === "Teams") {
       for (let i = indexRef * 5; i < 5 * (indexRef + 1); i++) {
-        console.log(teamsList[i], teamsList);
         if (teamsList[i]) {
           temp.push(teamsList[i]);
         } else {
@@ -324,7 +321,6 @@ export default function Leaderboard() {
         }
       }
     }
-    console.log(temp);
     setCurrentListItems(temp);
   }, [indexRef, currentList, agentsList, teamsList, playersList]);
   return (

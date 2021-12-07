@@ -4,7 +4,6 @@ const mysql = require("mysql2");
 
 const TournamentList = async (tRegion) => {
   try {
-    console.log("TREGION", tRegion);
     const tournamentList = await sql.promise().query(
       `SELECT *
         FROM Tournament

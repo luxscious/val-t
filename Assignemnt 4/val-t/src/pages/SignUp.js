@@ -10,7 +10,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Navbar from "../components/Navbar";
-
+import { useNavigate } from "react-router";
 const userType = [
   {
     value: "PLAYER",
@@ -71,20 +71,20 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     width: 171,
     height: 51,
     paddingTop: 5,
-    paddingLeft: 70
-  },
-
-  buttonText: {
-    marginBottom: -5,
+    margin: "auto",
+    marginTop: 10,
     padding: 8,
     textAlign: "center",
+    borderRadius: 10,
     backgroundColor: "#FF4655",
     fontFamily: "Mark Pro",
     color: "white",
-
     border: 0,
     "&:hover": {
       color: "white",
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
       border: 1,
       borderColor: "#FF4655",
     },
+    cursor: "pointer",
   },
 
   inputFirstName: {
@@ -152,56 +153,36 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 10,
     textAlign: "center",
   },
-  loginButtonText: {
-    padding: 10,
-    textAlign: "center",
-    backgroundColor: "transparent",
-    fontFamily: "Mark Pro",
-    fontSize: "18px",
-    color: "white",
-  },
 }));
-
-async function signUpUser(credentials) {
-  console.log(credentials);
-  return fetch("http://localhost:5000/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => {
-    console.log(data.status);
-    if (data.status === 200) {
-      return data.json();
-    } else {
-      return "incorrect";
-    }
-  });
-}
-
-function handleSubmit() {
-  console.log("hi");
-}
 
 export default function SignUp() {
   const [userTypes, setUserType] = React.useState("");
-
+  const navigate = useNavigate();
   const handleChange = (event) => {
     setUserType(event.target.value);
   };
 
+  async function signUpUser(credentials) {
+    return fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => {});
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     const username = event.currentTarget.username.value;
     const email = event.currentTarget.email.value;
     const password = event.currentTarget.password.value;
+    navigate("/login");
     const result = await signUpUser({
       username,
       email,
       password,
-    });
-  }
+    }).then(() => {});
+  };
 
   const classes = useStyles();
   return (
@@ -210,42 +191,25 @@ export default function SignUp() {
       <div className={classes.page}>
         <div className={classes.container}>
           <h1 className={classes.h1}>CREATE ACCOUNT</h1>
-          <div className={classes.nameContainer}>
-            <TextField
-              id="first-name"
-              className={classes.inputFirstName}
-              style={{ backgroundColor: "white", marginRight: 10 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="FIRST NAME"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-            />
-
-            <TextField
-              id="last-name"
-              className={classes.inputLastName}
-              style={{ backgroundColor: "white", marginLeft: 10 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="LAST NAME"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-            />
-          </div>
 
           <div className={classes.detailsContainer}>
             <form onSubmit={handleSubmit}>
+              <TextField
+                required
+                id="username"
+                className={classes.inputEmail}
+                style={{ backgroundColor: "white", marginBottom: 20 }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Mark Pro",
+                    fontSize: "18px",
+                    color: "#ACACAC",
+                  },
+                }}
+                label="USERNAME"
+                variant="filled"
+                InputProps={{ disableUnderline: true }}
+              />
               <TextField
                 id="email"
                 className={classes.inputEmail}
@@ -257,12 +221,15 @@ export default function SignUp() {
                     color: "#ACACAC",
                   },
                 }}
+                type="email"
                 label="EMAIL"
                 variant="filled"
                 InputProps={{ disableUnderline: true }}
+                required
               />
 
               <TextField
+                required
                 id="password"
                 className={classes.inputPassword}
                 style={{ backgroundColor: "white", marginBottom: 20 }}
@@ -273,6 +240,7 @@ export default function SignUp() {
                     color: "#ACACAC",
                   },
                 }}
+                type="password"
                 label="PASSWORD"
                 variant="filled"
                 InputProps={{ disableUnderline: true }}
@@ -280,6 +248,7 @@ export default function SignUp() {
 
               <div className={classes.userDropdown}>
                 <TextField
+                  required
                   className={classes.userDropdown}
                   InputLabelProps={{
                     style: {
@@ -305,26 +274,19 @@ export default function SignUp() {
                 </TextField>
               </div>
 
-              <div className={classes.button}>
-                <button
-                  type="submit"
-                  style={{ textDecoration: "none" }}
-                  to="/profile"
-                  className={classes.button}
-                >
-                  <h2 className={classes.buttonText}>SIGN UP</h2>
-                </button>
-              </div>
+              <button type="submit" className={classes.button}>
+                SIGN UP
+                {/* <h2 className={classes.buttonText}>SIGN UP</h2> */}
+              </button>
             </form>
-            <div className={classes.loginButton}>
-              <Link
-                style={{ textDecoration: "none" }}
-                to="/login"
-                className={classes.loginButton}
-              >
-                <h2 className={classes.loginButtonText}>LOG IN</h2>
-              </Link>
-            </div>
+            <button
+              onClick={() => {
+                navigate("/Login");
+              }}
+              className={classes.button}
+            >
+              LOGIN
+            </button>
           </div>
         </div>
       </div>

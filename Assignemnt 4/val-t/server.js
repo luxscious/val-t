@@ -10,8 +10,7 @@ const changeUser = require("./dbFiles/queries/changeUser");
 const leaderboard = require("./dbFiles/queries/leaderboard");
 const profile = require("./dbFiles/queries/profile");
 const tournament = require("./dbFiles/queries/tournament");
-const { promise } = require("./dbFiles/config/dbConfig");
-
+const signUp = require("./dbFiles/queries/signup.js");
 // Setting up the port 5000
 const API_PORT = process.env.PORT || 5000;
 const app = express();
@@ -34,7 +33,7 @@ app.post("/login", (req, res) => {
       res.sendStatus(404);
     } else {
       res.json(info);
-      res.sendSatus(200);
+      res.sendStatus(200);
     }
   });
   //   res.json({ message: "Hello API" });
@@ -106,6 +105,15 @@ app.post("/getTournaments", (req, res) => {
   let region = req.body.region;
   tournament.TournamentList(region).then((data) => {
     res.json(data);
+  });
+});
+
+app.post("/signUp", (req, res) => {
+  let username = req.body.username;
+  let email = req.body.email;
+  let password = req.body.password;
+  signUp.PlayerSignup(email, username, password).then((data) => {
+    res.sendStatus(data.status);
   });
 });
 

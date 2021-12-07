@@ -154,7 +154,6 @@ export default function Tournaments() {
   const [korTournaments, setKorTournaments] = useState([]);
   const [chTournaments, setChTournaments] = useState([]);
   const [currentList, setCurrentList] = useState([]);
-
   async function getTournaments(region) {
     console.log("HEY", region);
     const currRegion = region;
@@ -198,7 +197,6 @@ export default function Tournaments() {
     getTournaments("Korea");
     getTournaments("China");
   }, []);
-  console.log(euTournaments);
   useEffect(() => {
     //set current list
     if (currentRegion === "Europe") {
