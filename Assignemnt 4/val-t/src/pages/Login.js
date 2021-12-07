@@ -12,7 +12,6 @@ import { color } from "@mui/system";
 import { white } from "material-ui/styles/colors";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -225,6 +224,3 @@ export default function Login() {
     </>
   );
 }
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
