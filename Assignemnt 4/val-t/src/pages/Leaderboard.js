@@ -9,6 +9,8 @@ import leftBig from "../assets/leaderboard/left1.svg";
 import leftSmall from "../assets/leaderboard/left2.svg";
 import rightBig from "../assets/leaderboard/right1.svg";
 import rightSmall from "../assets/leaderboard/right2.svg";
+import regionalTopTeamsText from "../assets/leaderboard/regionalTopTeamsText.svg";
+
 const useStyles = makeStyles((theme) => ({
   bg: {
     backgroundImage: `url(${omenBg})`,
@@ -73,19 +75,20 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Cairo",
     fontSize: 20,
   },
-  undefeatedTeams: {
+  regionalTopTeams: {
     zIndex: 30,
     // position: "absolute",
-    marginLeft: 280,
+    marginLeft: 365,
     marginBottom: -50,
   },
   backgroundDiv: {
     width: 500,
-    height: 365,
+    height: 928,
     backgroundColor: "#E5E5E5",
-    marginTop: -262,
+    marginTop: -100,
     marginLeft: 685,
     zIndex: 0,
+    padding: 10,
   },
   teams: {
     textAlign: "right",
@@ -114,6 +117,48 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 3,
     marginLeft: -1,
   },
+  regionOptions: {
+    backgroundColor: "rgba(19, 31, 42, 0.96)",
+    borderRadius: 30,
+    border: 0,
+    width: 1245,
+    height: 78,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 150,
+    marginLeft: -590,
+  },
+
+  regionButton: {
+    fontSize: 30,
+    fontFamily: "Mark Pro",
+    backgroundColor: "rgba(0,0,0,0)",
+    border: 0,
+    color: "#E5E5E5",
+    cursor: "pointer",
+    padding: 15,
+  },
+
+  highlightedButton: {
+    fontSize: 30,
+    fontFamily: "Mark Pro",
+    backgroundColor: "rgba(0,0,0,0)",
+    borde: 0,
+    color: "#FF4655",
+    cursor: "pointer",
+    padding: 20,
+  },
+
+  regionalTeamsTable: {
+    width: 1245,
+    height: 600,
+    margin: "auto",
+    borderCollapse: "collapse",
+    marginTop: 20,
+    marginLeft: -590,
+    backgroundColor: "rgba(196, 196, 196, 0.6)"
+  }
 }));
 
 function RenderTable(list, givenIndex) {
@@ -379,11 +424,11 @@ export default function Leaderboard() {
             <img src={rightBig} alt="right" />
           </button>
         </div>
-        <div className={classes.undefeatedTeamsDiv}>
+        <div className={classes.regionalTopTeamsTextDiv}>
           <img
-            src={undefeatedTxt}
-            alt="undefeated"
-            className={classes.undefeatedTeams}
+            src={regionalTopTeamsText}
+            alt="regional"
+            className={classes.regionalTopTeams}
           />
           <div
             style={{
@@ -393,9 +438,75 @@ export default function Leaderboard() {
             }}
           >
             <div className={classes.backgroundDiv}>
-              {undefeatedTeams.map((x) => {
-                return <div className={classes.teams}>{x.name}</div>;
-              })}
+              <div className={classes.regionOptions}>
+                <button className={classes.regionButton} style={{marginRight: 70, marginLeft: 10}}
+                  /*className={
+                    currentRegion === "Korea"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    KOREA
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 95}}
+                  /*className={
+                    currentRegion === "Na"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    NA
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 60}}
+                  /*className={
+                    currentRegion === "Sa"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    SA
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 30}}
+                  /*className={
+                    currentRegion === "Oceania"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    OCEANIA
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 30}}
+                  /*className={
+                    currentRegion === "Se Asia"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    SE ASIA
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 35}}
+                  /*className={
+                    currentRegion === "Europe"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    EUROPE
+                  </button>
+                  <button className={classes.regionButton} style={{marginRight: 10}}
+                  /*className={
+                    currentRegion === "China"
+                    ? classes.highlightedButton
+                    : classes.regionButton
+                  }*/
+                  >
+                    CHINA
+                  </button>
+              </div>
+              <div>
+                  <table className={classes.regionalTeamsTable}>
+                  </table>
+              </div>
             </div>
           </div>
         </div>
