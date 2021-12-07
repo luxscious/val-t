@@ -102,6 +102,12 @@ app.post("/changePassword", (req, res) => {
     res.sendStatus(200);
   });
 });
+app.post("/getTournaments", (req, res) => {
+  let region = req.body.region;
+  tournament.TournamentList(region).then((data) => {
+    res.json(data);
+  });
+});
 
 // Listens on port 5000
 app.listen(API_PORT, () => {

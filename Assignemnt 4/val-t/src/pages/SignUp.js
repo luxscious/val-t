@@ -179,6 +179,9 @@ async function signUpUser(credentials) {
   });
 }
 
+function handleSubmit() {
+  console.log("hi");
+}
 
 export default function SignUp() {
   const [userTypes, setUserType] = React.useState("");
@@ -228,89 +231,89 @@ export default function SignUp() {
           </div>
 
           <div className={classes.detailsContainer}>
-            <form onSubmit={handleSubmit}> 
-            <TextField
-              id="email"
-              className={classes.inputEmail}
-              style={{ backgroundColor: "white", marginBottom: 20 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="EMAIL"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-            />
-
-            <TextField
-              id="password"
-              className={classes.inputPassword}
-              style={{ backgroundColor: "white", marginBottom: 20 }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Mark Pro",
-                  fontSize: "18px",
-                  color: "#ACACAC",
-                },
-              }}
-              label="PASSWORD"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-            />
-
-            <div className={classes.userDropdown}>
+            <form onSubmit={handleSubmit}>
               <TextField
-                className={classes.userDropdown}
+                id="email"
+                className={classes.inputEmail}
+                style={{ backgroundColor: "white", marginBottom: 20 }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "Mark Pro",
                     fontSize: "18px",
-                    width: "100%",
                     color: "#ACACAC",
                   },
                 }}
-                select
-                label=""
-                label="SELECT USER TYPE"
+                label="EMAIL"
                 variant="filled"
-                root=""
-                value={userTypes}
-                onChange={handleChange}
-              >
-                {userType.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
+                InputProps={{ disableUnderline: true }}
+              />
 
-            <div className={classes.button}>
-              <button type="submit"
-                style={{ textDecoration: "none" }}
-                to="/profile"
-                className={classes.button}
-              >
-                <h2 className={classes.buttonText}>SIGN UP</h2>
-              </button>
-            </div>
-            </form>
-              <div className={classes.loginButton}>
-                <Link
-                  style={{ textDecoration: "none" }}
-                  to="/login"
-                  className={classes.loginButton}
+              <TextField
+                id="password"
+                className={classes.inputPassword}
+                style={{ backgroundColor: "white", marginBottom: 20 }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Mark Pro",
+                    fontSize: "18px",
+                    color: "#ACACAC",
+                  },
+                }}
+                label="PASSWORD"
+                variant="filled"
+                InputProps={{ disableUnderline: true }}
+              />
+
+              <div className={classes.userDropdown}>
+                <TextField
+                  className={classes.userDropdown}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "Mark Pro",
+                      fontSize: "18px",
+                      width: "100%",
+                      color: "#ACACAC",
+                    },
+                  }}
+                  select
+                  label=""
+                  label="SELECT USER TYPE"
+                  variant="filled"
+                  root=""
+                  value={userTypes}
+                  onChange={handleChange}
                 >
-                  <h2 className={classes.loginButtonText}>LOG IN</h2>
-                </Link>
+                  {userType.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </div>
+
+              <div className={classes.button}>
+                <button
+                  type="submit"
+                  style={{ textDecoration: "none" }}
+                  to="/profile"
+                  className={classes.button}
+                >
+                  <h2 className={classes.buttonText}>SIGN UP</h2>
+                </button>
+              </div>
+            </form>
+            <div className={classes.loginButton}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/login"
+                className={classes.loginButton}
+              >
+                <h2 className={classes.loginButtonText}>LOG IN</h2>
+              </Link>
             </div>
           </div>
         </div>
-      
+      </div>
     </>
   );
 }

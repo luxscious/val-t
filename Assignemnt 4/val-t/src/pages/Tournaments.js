@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Tungsten Bold",
     fontSize: 180,
     color: "white",
-    //marginLeft: 750,
     padding: 0,
     margin: 0,
   },
@@ -127,11 +126,13 @@ const useStyles = makeStyles((theme) => ({
 function RenderTable(list) {
   const classes = useStyles();
   return list.map((x) => {
+    const startDate = x.startDate.split("T");
+    const endDate = x.endDate.split("T");
     return (
       <tr className={classes.tableRow}>
-        <td className={classes.idTd}>{x.id}</td>
-        <td className={classes.dateTd}>{x.startDate}</td>
-        <td className={classes.dateTd}>{x.endDate}</td>
+        <td className={classes.idTd}>{x.tournamentId}</td>
+        <td className={classes.dateTd}>{startDate[0]}</td>
+        <td className={classes.dateTd}>{endDate[0]}</td>
         <td className={classes.leagueTd}>{x.league}</td>
         <td className={classes.moneyTd}>{x.buyIn}</td>
         <td className={classes.moneyTd}>{x.payOut}</td>
@@ -140,77 +141,11 @@ function RenderTable(list) {
     );
   });
 }
+
 export default function Tournaments() {
   const classes = useStyles();
 
   const [currentRegion, setCurrentRegion] = useState("Europe");
-  const [listOfTournaments, setListOfTournaments] = useState([
-    {
-      id: 39,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "silver",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 42,
-      startDate: "2021-08-05",
-      endDate: "2021-08-13",
-      league: "silver",
-      buyIn: 7,
-      payOut: 61,
-    },
-    {
-      id: 42,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "silver",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 67,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "Gold",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 75,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "Platinum",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 76,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "Diamond",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 80,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "silver",
-      buyIn: 0,
-      payOut: 42,
-    },
-    {
-      id: 91,
-      startDate: "2021-07-17",
-      endDate: "2021-07-24",
-      league: "silver",
-      buyIn: 0,
-      payOut: 42,
-    },
-  ]);
-
   const [euTournaments, setEuTournaments] = useState([]);
   const [naTournaments, setNaTournaments] = useState([]);
   const [saTournaments, setSaTournaments] = useState([]);
@@ -219,12 +154,53 @@ export default function Tournaments() {
   const [korTournaments, setKorTournaments] = useState([]);
   const [chTournaments, setChTournaments] = useState([]);
   const [currentList, setCurrentList] = useState([]);
+
+  async function getTournaments(region) {
+    console.log("HEY", region);
+    const currRegion = region;
+    return fetch("http://localhost:5000/getTournaments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ region: region }),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        console.log(currRegion);
+        if (currRegion === "Europe") {
+          setEuTournaments(data);
+        } else if (currRegion === "North America") {
+          console.log("NA", data);
+          setNaTournaments(data);
+        } else if (currRegion === "South America") {
+          setSaTournaments(data);
+        } else if (currRegion === "Oceania") {
+          setOceTournaments(data);
+        } else if (currRegion === "South East Asia") {
+          setSeTournaments(data);
+        } else if (currRegion === "Korea") {
+          setKorTournaments(data);
+        } else {
+          setChTournaments(data);
+        }
+      });
+  }
   useEffect(() => {
     //setTournamenets
-  }, [listOfTournaments]);
+    getTournaments("Europe");
+    getTournaments("North America");
+    getTournaments("South America");
+    getTournaments("South East Asia");
+    getTournaments("Oceania");
+    getTournaments("Korea");
+    getTournaments("China");
+  }, []);
+  console.log(euTournaments);
   useEffect(() => {
     //set current list
-
     if (currentRegion === "Europe") {
       setCurrentList(euTournaments);
     } else if (currentRegion === "Na") {
@@ -358,7 +334,7 @@ export default function Tournaments() {
             <th className={classes.tableHeader}>PAY OUT</th>
             <th className={classes.tableHeader}>JOIN</th>
 
-            {RenderTable(listOfTournaments)}
+            {RenderTable(currentList)}
           </table>
         </div>
       </div>
