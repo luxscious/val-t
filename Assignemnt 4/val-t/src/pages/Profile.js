@@ -9,6 +9,10 @@ import teamsTxt from "../assets/profile/teams.svg";
 import player from "../assets/profile/player.svg";
 import team from "../assets/profile/teamTxt.svg";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 const useStyles = makeStyles((theme) => ({
   page: {
     position: "fixed",
@@ -226,7 +230,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile() {
   const classes = useStyles();
-  const user = useParams();
+  const navigate = useNavigate();
+
+  const user = JSON.parse(Cookies.get("User"))[0];
+  console.log(user.name);
   const [playerWins, setPlayerWins] = useState(0);
   const [playerLosses, setPlayerLosses] = useState(0);
   const [teamWins, setTeamWins] = useState(0);
@@ -236,105 +243,114 @@ export default function Profile() {
     { id: 2, name: "BagOfChips" },
     { id: 3, name: "MinimumWagers" },
   ]);
+  const handleLogout = () => {
+    Cookies.remove("User");
+    navigate("/");
+  };
   return (
-    <div className={classes.page}>
-      <div className={classes.settings}>
-        <img src={settings} alt="settings" className={classes.settingsImg} />
-        <div className={classes.settingsbgDiv}> </div>
-        <div className={classes.settingsContent}>
-          <form className={classes.form}>
-            <label>PLAYERNAME:</label>
-            <input
-              type="text"
-              placeholder="username"
-              className={classes.input}
-            ></input>
-            <button type="submit" className={classes.button}>
-              CHANGE
+    <>
+      <Navbar />
+      <div className={classes.page}>
+        <div className={classes.settings}>
+          <img src={settings} alt="settings" className={classes.settingsImg} />
+          <div className={classes.settingsbgDiv}> </div>
+          <div className={classes.settingsContent}>
+            <form className={classes.form}>
+              <label>PLAYERNAME:</label>
+              <input
+                type="text"
+                placeholder="username"
+                className={classes.input}
+              ></input>
+              <button type="submit" className={classes.button}>
+                CHANGE
+              </button>
+            </form>
+            <form className={classes.form}>
+              <label>PASSWORD:</label>
+              <input
+                type="text"
+                placeholder="password"
+                className={classes.input}
+              ></input>
+              <button type="submit" className={classes.button}>
+                CHANGE
+              </button>
+            </form>
+
+            <button className={classes.logout} onClick={handleLogout}>
+              LOGOUT
             </button>
-          </form>
-          <form className={classes.form}>
-            <label>PASSWORD:</label>
-            <input
-              type="text"
-              placeholder="password"
-              className={classes.input}
-            ></input>
-            <button type="submit" className={classes.button}>
-              CHANGE
-            </button>
-          </form>
-
-          <button className={classes.logout}>LOGOUT</button>
-        </div>
-      </div>
-      <div className={classes.statsContainer}>
-        <img src={stats} alt="stats" style={{ marginTop: 10 }} />
-        <img src={player} alt="player" className={classes.playerTxt} />
-        {/* Player */}
-        <div className={classes.statsInfo}>
-          <div className={classes.statsInfoLabels}>
-            <h6 className={classes.winLossMargins}>WINS</h6>
-            <h6 className={classes.winLossMargins}>LOSSES</h6>
-          </div>
-          <div className={classes.statsInfoNums}>
-            <h4 className={classes.winLossMargins}>{playerWins}</h4>
-            <h4 className={classes.winLossMargins}>{playerLosses}</h4>
-          </div>
-          <div className={classes.statsBg} style={{ top: 25, left: 450 }}>
-            <div className={classes.statsInnerBg}></div>
           </div>
         </div>
-        <img src={stats} alt="stats" style={{ marginTop: 57 }} />
-        <img src={team} alt="player" className={classes.playerTxt} />
-        {/* Team */}
-        <div className={classes.statsInfo}>
-          <div className={classes.statsInfoLabels}>
-            <h6 className={classes.winLossMargins}>WINS</h6>
-            <h6 className={classes.winLossMargins}>LOSSES</h6>
-          </div>
-          <div className={classes.statsInfoNums}>
-            <h4 className={classes.winLossMargins}>{teamWins}</h4>
-            <h4 className={classes.winLossMargins}>{teamLosses}</h4>
-          </div>
-          <div className={classes.statsBg} style={{ top: 323, left: 450 }}>
-            <div className={classes.statsInnerBg}></div>
-          </div>
-        </div>
-      </div>
-
-      <div className={classes.helloContainer}>
-        <div className={classes.hello}>
-          <img src={hello} alt="hello" />
-          <h1 className={classes.helloText}>"{user.username.toUpperCase()}"</h1>
-          <div className={classes.helloBg}></div>
-        </div>
-        <div className={classes.teams}>
-          <img src={teamsTxt} alt="teams" style={{ marginTop: 57 }} />
-
-          <div className={classes.information}>
-            <div className={classes.ids}>
-              <h3>ID</h3>
-              {teams.map(function (d) {
-                return <h4>{d.id}</h4>;
-              })}
+        <div className={classes.statsContainer}>
+          <img src={stats} alt="stats" style={{ marginTop: 10 }} />
+          <img src={player} alt="player" className={classes.playerTxt} />
+          {/* Player */}
+          <div className={classes.statsInfo}>
+            <div className={classes.statsInfoLabels}>
+              <h6 className={classes.winLossMargins}>WINS</h6>
+              <h6 className={classes.winLossMargins}>LOSSES</h6>
             </div>
-            <div className={classes.line}></div>
-            <div className={classes.names}>
-              <h3>NAME</h3>
-              {teams.map(function (d) {
-                return <h4>{d.name}</h4>;
-              })}
+            <div className={classes.statsInfoNums}>
+              <h4 className={classes.winLossMargins}>{playerWins}</h4>
+              <h4 className={classes.winLossMargins}>{playerLosses}</h4>
+            </div>
+            <div className={classes.statsBg} style={{ top: 25, left: 450 }}>
+              <div className={classes.statsInnerBg}></div>
+            </div>
+          </div>
+          <img src={stats} alt="stats" style={{ marginTop: 57 }} />
+          <img src={team} alt="player" className={classes.playerTxt} />
+          {/* Team */}
+          <div className={classes.statsInfo}>
+            <div className={classes.statsInfoLabels}>
+              <h6 className={classes.winLossMargins}>WINS</h6>
+              <h6 className={classes.winLossMargins}>LOSSES</h6>
+            </div>
+            <div className={classes.statsInfoNums}>
+              <h4 className={classes.winLossMargins}>{teamWins}</h4>
+              <h4 className={classes.winLossMargins}>{teamLosses}</h4>
+            </div>
+            <div className={classes.statsBg} style={{ top: 323, left: 450 }}>
+              <div className={classes.statsInnerBg}></div>
             </div>
           </div>
         </div>
-        <div className={classes.teamBg}>
-          <div className={classes.teamInnerBg}></div>
+
+        <div className={classes.helloContainer}>
+          <div className={classes.hello}>
+            <img src={hello} alt="hello" />
+            <h1 className={classes.helloText}>"{user.name.toUpperCase()}"</h1>
+            <div className={classes.helloBg}></div>
+          </div>
+          <div className={classes.teams}>
+            <img src={teamsTxt} alt="teams" style={{ marginTop: 57 }} />
+
+            <div className={classes.information}>
+              <div className={classes.ids}>
+                <h3>ID</h3>
+                {teams.map(function (d) {
+                  return <h4>{d.id}</h4>;
+                })}
+              </div>
+              <div className={classes.line}></div>
+              <div className={classes.names}>
+                <h3>NAME</h3>
+                {teams.map(function (d) {
+                  return <h4>{d.name}</h4>;
+                })}
+              </div>
+            </div>
+          </div>
+          <div className={classes.teamBg}>
+            <div className={classes.teamInnerBg}></div>
+          </div>
+        </div>
+        <div className={classes.profile}>
+          <img src={profile} alt="profile" />
         </div>
       </div>
-      <div className={classes.profile}>
-        <img src={profile} alt="profile" />
-      </div>
-    </div>
+    </>
   );
 }

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Toolbar, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import logo from "../assets/Val-T Header Logo.svg";
-
+import Cookies from "js-cookie";
 const useStyles = makeStyles((theme) => ({
   bar: {
     background: "#111111",
@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
+  const user = Cookies.get("User");
+
   return (
     <AppBar position="fixed" className={classes.bar}>
       <Toolbar className={classes.toolBar}>
@@ -41,9 +43,15 @@ function Navbar() {
           <Link to="/Leaderboard" className={classes.link}>
             LEADERBOARD
           </Link>
-          <Link to="Login" className={classes.link}>
-            LOGIN
-          </Link>
+          {!user ? (
+            <Link to="/Login" className={classes.link}>
+              LOGIN
+            </Link>
+          ) : (
+            <Link to="/Profile" className={classes.link}>
+              PROFILE
+            </Link>
+          )}
         </div>
       </Toolbar>
     </AppBar>

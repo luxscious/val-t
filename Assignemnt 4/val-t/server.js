@@ -18,7 +18,7 @@ const app = express();
 
 // cors port at 5001
 var corsOptions = {
-  origin: "http://localhost:5000",
+  origin: "http://localhost:3000",
 };
 
 // Uses cors, and express json/urlencoded
@@ -32,10 +32,10 @@ app.post("/login", (req, res) => {
   const password = req.body.password;
   login.PlayerLogin(username, password).then((info) => {
     if (info.length < 1) {
-      res.send(404);
+      res.sendStatus(404);
     } else {
       res.json(info);
-      res.send(200);
+      res.sendSatus(200);
     }
   });
   //   res.json({ message: "Hello API" });

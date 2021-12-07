@@ -4,13 +4,13 @@ import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import leaderboardBanner from "../assets/leaderboard/leaderboard.svg";
-import undefeatedTxt from "../assets/leaderboard/undefeated.svg";
 import leftBig from "../assets/leaderboard/left1.svg";
 import leftSmall from "../assets/leaderboard/left2.svg";
 import rightBig from "../assets/leaderboard/right1.svg";
 import rightSmall from "../assets/leaderboard/right2.svg";
 import regionalTopTeamsText from "../assets/leaderboard/regionalTopTeamsText.svg";
 
+import Navbar from "../components/Navbar";
 const useStyles = makeStyles((theme) => ({
   bg: {
     backgroundImage: `url(${omenBg})`,
@@ -157,8 +157,8 @@ const useStyles = makeStyles((theme) => ({
     borderCollapse: "collapse",
     marginTop: 20,
     marginLeft: -590,
-    backgroundColor: "rgba(196, 196, 196, 0.6)"
-  }
+    backgroundColor: "rgba(196, 196, 196, 0.6)",
+  },
 }));
 
 function RenderTable(list, givenIndex) {
@@ -305,6 +305,7 @@ export default function Leaderboard() {
   }, [indexRef, currentList]);
   return (
     <>
+      <Navbar />
       <div className={classes.bg}>
         <img src={txt} alt="leaderboard" className={classes.text} />
       </div>
@@ -439,73 +440,86 @@ export default function Leaderboard() {
           >
             <div className={classes.backgroundDiv}>
               <div className={classes.regionOptions}>
-                <button className={classes.regionButton} style={{marginRight: 70, marginLeft: 10}}
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 70, marginLeft: 10 }}
                   /*className={
                     currentRegion === "Korea"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    KOREA
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 95}}
+                >
+                  KOREA
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 95 }}
                   /*className={
                     currentRegion === "Na"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    NA
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 60}}
+                >
+                  NA
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 60 }}
                   /*className={
                     currentRegion === "Sa"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    SA
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 30}}
+                >
+                  SA
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 30 }}
                   /*className={
                     currentRegion === "Oceania"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    OCEANIA
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 30}}
+                >
+                  OCEANIA
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 30 }}
                   /*className={
                     currentRegion === "Se Asia"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    SE ASIA
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 35}}
+                >
+                  SE ASIA
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 35 }}
                   /*className={
                     currentRegion === "Europe"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    EUROPE
-                  </button>
-                  <button className={classes.regionButton} style={{marginRight: 10}}
+                >
+                  EUROPE
+                </button>
+                <button
+                  className={classes.regionButton}
+                  style={{ marginRight: 10 }}
                   /*className={
                     currentRegion === "China"
                     ? classes.highlightedButton
                     : classes.regionButton
                   }*/
-                  >
-                    CHINA
-                  </button>
+                >
+                  CHINA
+                </button>
               </div>
               <div>
-                  <table className={classes.regionalTeamsTable}>
-                  </table>
+                <table className={classes.regionalTeamsTable}></table>
               </div>
             </div>
           </div>

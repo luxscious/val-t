@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import bg from "../assets/bg_tourney.svg";
 import { useState, useEffect } from "react";
-
+import Navbar from "../components/Navbar";
 const useStyles = makeStyles((theme) => ({
   page: {
     position: "fixed",
@@ -243,122 +243,125 @@ export default function Tournaments() {
   }, [currentRegion]);
 
   return (
-    <div className={classes.page}>
-      <div className={classes.tournamentText}>
-        <h1 className={classes.h1}>TOURNAMENTS</h1>
-        <h2 className={classes.h2} style={{}}>
-          SELECT REGION TO
-        </h2>
-        <h2 className={classes.h2}>PARTICIPATE IN TOURNAMENT </h2>
-      </div>
-      <div className={classes.tournamentTable}>
-        <div className={classes.options}>
-          <button
-            className={
-              currentRegion === "Europe"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Europe");
-            }}
-          >
-            EUROPE
-          </button>
-          <button
-            className={
-              currentRegion === "Na"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Na");
-            }}
-          >
-            NA
-          </button>
-          <button
-            className={
-              currentRegion === "Sa"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Sa");
-            }}
-          >
-            SA
-          </button>
-          <button
-            className={
-              currentRegion === "Oceania"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Oceania");
-            }}
-          >
-            OCEANIA
-          </button>
-          <button
-            className={
-              currentRegion === "Se Asia"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Se Asia");
-            }}
-          >
-            SE ASIA
-          </button>
-          <button
-            className={
-              currentRegion === "Korea"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("Korea");
-            }}
-          >
-            KOREA
-          </button>
-          <button
-            className={
-              currentRegion === "China"
-                ? classes.highlightedButton
-                : classes.button
-            }
-            onClick={() => {
-              setCurrentRegion("China");
-            }}
-          >
-            CHINA
-          </button>
+    <>
+      <Navbar />
+      <div className={classes.page}>
+        <div className={classes.tournamentText}>
+          <h1 className={classes.h1}>TOURNAMENTS</h1>
+          <h2 className={classes.h2} style={{}}>
+            SELECT REGION TO
+          </h2>
+          <h2 className={classes.h2}>PARTICIPATE IN TOURNAMENT </h2>
         </div>
-        <table className={classes.table}>
-          <th
-            className={classes.tableHeader}
-            style={{
-              backgroundColor: "#C4C4C4",
-              borderRight: "1px solid #969696",
-              borderTopLeftRadius: 5,
-            }}
-          >
-            ID
-          </th>
-          <th className={classes.tableHeader}>START DATE</th>
-          <th className={classes.tableHeader}>END DATE</th>
-          <th className={classes.tableHeader}>LEAGUE</th>
-          <th className={classes.tableHeader}>BUY IN</th>
-          <th className={classes.tableHeader}>PAY OUT</th>
-          <th className={classes.tableHeader}>JOIN</th>
+        <div className={classes.tournamentTable}>
+          <div className={classes.options}>
+            <button
+              className={
+                currentRegion === "Europe"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Europe");
+              }}
+            >
+              EUROPE
+            </button>
+            <button
+              className={
+                currentRegion === "Na"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Na");
+              }}
+            >
+              NA
+            </button>
+            <button
+              className={
+                currentRegion === "Sa"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Sa");
+              }}
+            >
+              SA
+            </button>
+            <button
+              className={
+                currentRegion === "Oceania"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Oceania");
+              }}
+            >
+              OCEANIA
+            </button>
+            <button
+              className={
+                currentRegion === "Se Asia"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Se Asia");
+              }}
+            >
+              SE ASIA
+            </button>
+            <button
+              className={
+                currentRegion === "Korea"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("Korea");
+              }}
+            >
+              KOREA
+            </button>
+            <button
+              className={
+                currentRegion === "China"
+                  ? classes.highlightedButton
+                  : classes.button
+              }
+              onClick={() => {
+                setCurrentRegion("China");
+              }}
+            >
+              CHINA
+            </button>
+          </div>
+          <table className={classes.table}>
+            <th
+              className={classes.tableHeader}
+              style={{
+                backgroundColor: "#C4C4C4",
+                borderRight: "1px solid #969696",
+                borderTopLeftRadius: 5,
+              }}
+            >
+              ID
+            </th>
+            <th className={classes.tableHeader}>START DATE</th>
+            <th className={classes.tableHeader}>END DATE</th>
+            <th className={classes.tableHeader}>LEAGUE</th>
+            <th className={classes.tableHeader}>BUY IN</th>
+            <th className={classes.tableHeader}>PAY OUT</th>
+            <th className={classes.tableHeader}>JOIN</th>
 
-          {RenderTable(listOfTournaments)}
-        </table>
+            {RenderTable(listOfTournaments)}
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
