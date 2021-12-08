@@ -1,13 +1,7 @@
 import bg from "../assets/bg_home.svg";
-import { makeStyles, Button } from "@material-ui/core";
-import whiteRect from "../assets/signup-rect.svg";
-import logo from "../assets/val-t-text.svg";
+import { makeStyles } from "@material-ui/core";
 import { TextField } from "@mui/material";
-import { color, flexbox } from "@mui/system";
-import { white } from "material-ui/styles/colors";
-import { Link } from "react-router-dom";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router";

@@ -1,17 +1,7 @@
 import bg from "../assets/bg_home.svg";
-import whiteRect from "../assets/login-rect.svg";
-import logo from "../assets/val-t-text.svg";
-import {
-  makeStyles,
-  Button,
-  Box,
-  responsiveFontSizes,
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { TextField } from "@mui/material";
-import { color } from "@mui/system";
-import { white } from "material-ui/styles/colors";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";

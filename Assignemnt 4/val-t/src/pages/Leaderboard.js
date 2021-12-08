@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "contain",
   },
   container: {
-    // height: 1260,
     backgroundColor: "white",
     zIndex: -1,
   },
@@ -239,7 +238,7 @@ export default function Leaderboard() {
   const classes = useStyles();
   const [currentListItems, setCurrentListItems] = useState([]);
 
-  const [currentRegion, setCurrentRegion] = useState("Asia");
+  const [currentRegion, setCurrentRegion] = useState("Korea");
   const [currentRegionList, setCurrentRegionList] = useState([]);
   const [seAsiaTeams, setSeAsiaTeams] = useState([]);
   const [naTeams, setNaTeams] = useState([]);
@@ -382,7 +381,7 @@ export default function Leaderboard() {
       totalPages.current = Math.ceil(playersList.length / 5);
     }
     setIndexRef(0);
-  }, [currentList]);
+  }, [agentsList, currentList, playersList, teamsList]);
 
   //update list every time page changes
   useEffect(() => {

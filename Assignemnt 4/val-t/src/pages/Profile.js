@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core";
 import bg from "../assets/profile/bg_profile.svg";
-import { useParams } from "react-router";
 import profile from "../assets/profile/profile_text.svg";
 import settings from "../assets/profile/settings.svg";
 import stats from "../assets/profile/stats.svg";
@@ -13,7 +12,6 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
-import cookie from "universal-cookie";
 const useStyles = makeStyles((theme) => ({
   page: {
     position: "fixed",

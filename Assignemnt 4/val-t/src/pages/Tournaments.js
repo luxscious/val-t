@@ -210,7 +210,16 @@ export default function Tournaments() {
     } else {
       setCurrentList(chTournaments);
     }
-  }, [currentRegion]);
+  }, [
+    chTournaments,
+    currentRegion,
+    euTournaments,
+    korTournaments,
+    naTournaments,
+    oceTournaments,
+    saTournaments,
+    seTournaments,
+  ]);
 
   return (
     <>
