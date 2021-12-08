@@ -34,7 +34,8 @@ const agentsList = async () => {
       `SELECT aName as name,aWins as wins
         FROM Agent
         WHERE aWins > (SELECT AVG(aWins) as avg
-        FROM Agent)`
+        FROM Agent)
+        ORDER BY aWins DESC`
     );
 
     return topAgents[0];
