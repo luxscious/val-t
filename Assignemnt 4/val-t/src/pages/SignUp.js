@@ -21,7 +21,6 @@ const userType = [
 ];
 
 const useStyles = makeStyles((theme) => ({
-  //put css here
   page: {
     position: "fixed",
     padding: 0,

@@ -137,9 +137,7 @@ async function loginUser(credentials) {
 }
 
 export default function Login() {
-  //const [errorState, setErrorState] = useState(false);
   const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const username = event.currentTarget.username.value;

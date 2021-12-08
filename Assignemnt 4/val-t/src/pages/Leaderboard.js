@@ -75,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
   },
   regionalTopTeams: {
     zIndex: 30,
-    // position: "absolute",
     marginLeft: 365,
     marginBottom: -50,
   },
@@ -120,7 +119,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 30,
     border: 0,
     width: 1245,
-    height: 78,
+    height: 79,
+    paddingTop: 5,
+    paddingBottom: 5,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -142,8 +143,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 30,
     fontFamily: "Mark Pro",
     backgroundColor: "rgba(0,0,0,0)",
-    borde: 0,
-    color: "#FF4655",
+    border: 0,
+    color: "#DA515C",
     cursor: "pointer",
     padding: 20,
   },
@@ -159,8 +160,8 @@ const useStyles = makeStyles((theme) => ({
   },
   td: {
     fontFamily: "Mark Pro",
-    fontSize: 36,
-    color: "#FF4655",
+    fontSize: 39,
+    color: "#565656",
   },
 }));
 
@@ -230,7 +231,6 @@ export default function Leaderboard() {
   const [agentsList, setAgentsList] = useState([]);
   const [playersList, setPlayersList] = useState([]);
   const [teamsList, setTeamsList] = useState([]);
-  const [undefeatedTeams, setDefeatedTeams] = useState([]);
 
   const [currentList, setCurrentList] = useState("Agents");
   const [indexRef, setIndexRef] = useState(0);
@@ -308,7 +308,16 @@ export default function Leaderboard() {
     } else {
       setCurrentRegionList(chTeams);
     }
-  }, [currentRegion]);
+  }, [
+    chTeams,
+    currentRegion,
+    euTeams,
+    korTeams,
+    naTeams,
+    oceTeams,
+    saTeams,
+    seAsiaTeams,
+  ]);
   const getAgents = async () => {
     try {
       return fetch("http://localhost:5000/topAgents", {
@@ -536,8 +545,8 @@ export default function Leaderboard() {
             disabled={indexRef === totalPages.current - 1}
             onClick={() => {
               let index;
-              if (indexRef > totalPages.current - 10) {
-                index = totalPages - 1;
+              if (indexRef + 1 > totalPages.current - 10) {
+                index = totalPages.current - 1;
               } else {
                 index = indexRef + 10;
               }

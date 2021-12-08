@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tableRow: {
     margin: 0,
-    // backgroundColor: "red",
     border: 0,
   },
   idTd: {

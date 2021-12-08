@@ -1,5 +1,3 @@
-//TODO: get rid of userOp/user.js
-
 // Required libraries
 const express = require("express");
 const cors = require("cors");
@@ -36,7 +34,6 @@ app.post("/login", (req, res) => {
       res.sendStatus(200);
     }
   });
-  //   res.json({ message: "Hello API" });
 });
 app.post("/topTeams", (req, res) => {
   leaderboard.teamsList().then((data) => {
